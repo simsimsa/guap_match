@@ -1,0 +1,29 @@
+.navigate {
+    max-width: 700px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.menu_layout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #f3d9e6;
+    border-bottom: #f157a4 2px solid
+}
+
+.goTo{
+    color: black;
+    text-decoration: none;
+    font-style: italic;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.active{
+    color: #440c29;
+    font-size: 30px;
+}

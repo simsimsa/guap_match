@@ -1,0 +1,14 @@
+.input {
+    border: 4px solid #f157a4;
+    background: white;
+    border-radius: 15px;
+    padding: 12px 15px;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    width: 100%;
+}
+
+.input:focus {
+    outline: none;
+}
