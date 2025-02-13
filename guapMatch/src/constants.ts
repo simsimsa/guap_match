@@ -1,7 +1,7 @@
-export const PREFIX ="http://localhost:3000"; //внутренняя переменная, сама пересобирается
+export const PREFIX = "https://purpleschool.ru/pizza-api-demo"; //внутренняя переменная, сама пересобирается
 
 export const API = {
-    login: `${PREFIX}/users/login`,
+    login: `${PREFIX}/auth/login`,
     register: `${PREFIX}/users/register`,
     profile: `${PREFIX}/users/me`,
 };

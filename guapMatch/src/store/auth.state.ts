@@ -5,15 +5,16 @@ import { API } from "../constants";
 import { devtools, persist } from "zustand/middleware";
 
 type AuthSate = {
-    accessToken: null | string;//есть ли токен
+    accessToken: null | string; //есть ли токен
     error: null | string; //вылетела ли ошибка
     user: null | User; //есть ли юзер
 };
 
 type AuthActions = {
-    login: ({ email, password }: LoginUser) => void;//типизируем функцию
+    login: ({ email, password }: LoginUser) => void; //типизируем функцию
     register: (requestData: RegisterUser) => void; //типизируем регистрашку
     getProfile: (accessToken: string) => void; //типизируем токен который к нам придет
+    logout: (accessToken: string | null) => void;
 };
 
 const authSlice: StateCreator<
@@ -37,10 +38,10 @@ const authSlice: StateCreator<
                     },
                 }
             );
-            set({ accessToken: data, error: null });//получаем токен при успехе
+            set({ accessToken: data, error: null }); //получаем токен при успехе
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data }); //указываем ошибку
+                set({ error: error.response?.data.message }); //указываем ошибку
             }
         }
     },
@@ -60,7 +61,8 @@ const authSlice: StateCreator<
     },
     getProfile: async (accessToken) => {
         try {
-            const { data } = await axios.get<User>(API.profile, {//получаем токен
+            const { data } = await axios.get<User>(API.profile, {
+                //получаем токен
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
@@ -68,9 +70,12 @@ const authSlice: StateCreator<
             set({ user: data, error: null });
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data });//если что-то пошло не так
+                set({ error: error.response?.data }); //если что-то пошло не так
             }
         }
+    },
+    logout: async (accessToken) => {
+        if (accessToken) set({ accessToken: null });
     },
 });
 
@@ -83,5 +88,4 @@ export const useAuthStore = create<AuthActions & AuthSate>()(
             name: "authStore",
         }
     )
-);//тут написан хук который можно везде юзать
-
+); //тут написан хук который можно везде юзать
