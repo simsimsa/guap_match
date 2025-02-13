@@ -2,6 +2,6 @@ export const PREFIX = "https://purpleschool.ru/pizza-api-demo"; //внутрен
 
 export const API = {
     login: `${PREFIX}/auth/login`,
-    register: `${PREFIX}/users/register`,
+    register: `${PREFIX}/auth/register`,
     profile: `${PREFIX}/users/me`,
 };

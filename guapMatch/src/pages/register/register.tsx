@@ -2,7 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import styles from "./register.module.css";
 import Input from "../../components/Input/Input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import { useAuthStore } from "../../store/auth.state";
 
 export type RegisterForm = {
     name: {
@@ -18,30 +19,36 @@ export type RegisterForm = {
 
 export function Register() {
     const navigate = useNavigate();
+    const { register, accessToken, error } = useAuthStore();
+    const [err, seterror] = useState("");
 
-    const [error, seterror] = useState("");
+    useEffect(() => {
+        if (accessToken) {
+            navigate("/form");
+        }
+    }, [accessToken, navigate]); //пока не делаю нужен токен, тут будет переход
+
+    const myError = () => {
+        seterror("Ошибка от Руса"); //тут моя ошибка улучшится
+    };
 
     const submit = async (event: FormEvent) => {
         event.preventDefault();
         seterror("");
         const target = event.target as typeof event.target & RegisterForm; //тип значений которые мы вытаскиваем
         const { name, email, password } = target; //отправляем данные туда
+        if (!email.value || !password.value || !name.value || checked == false) {
+            myError();
+        }
         await sendLogin(name.value, email.value, password.value); //отправляем функцию для отправки на бэк
     };
 
     const sendLogin = async (name: string, email: string, password: string) => {
-        if (
-            !localStorage.getItem(email) &&
-            email !== "" &&
-            password !== "" &&
-            name !== "" &&
-            checked == true
-        ) {
-            localStorage.setItem(email, password);
-            console.log(name, email, password);
-            navigate("/form");
-        } else {
-            seterror("Ошибка от руса");
+        try {
+            await register({ name, email, password });
+        } catch (error) {
+            myError();
+            console.error(error); //тут будет ошибка от руса
         }
     };
 
@@ -53,7 +60,7 @@ export function Register() {
     return (
         <div className={styles["auth"]}>
             <h1>Регистрация</h1>
-            {error !== "" && <div className={styles["error"]}>{error}</div>}
+            {(err !== "" || error!==null)&& <div className={styles["error"]}>{err}</div>}
             <form className={styles["form"]} onSubmit={submit}>
                 <div className={styles["form_logo"]}>
                     <label htmlFor="name">Имя</label>

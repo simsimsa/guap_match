@@ -23,13 +23,13 @@ export function Auth() {
     //const [triggerCurrent] = useLazyCurrentQuery();//через бэк запрашиваю этого пользователя
 
     useEffect(() => {
-        if (accessToken) {
+        if (accessToken && err == "") {
             navigate("/");
         }
     }, [accessToken, navigate]); //пока не делаю нужен токен, тут будет переход
 
     const myError = () => {
-        seterror("Ошибка от Руса");//тут моя ошибка улучшится
+        seterror("Ошибка от Руса"); //тут моя ошибка улучшится
     };
 
     const submit = async (event: FormEvent) => {
@@ -37,7 +37,7 @@ export function Auth() {
         seterror("");
         const target = event.target as typeof event.target & LoginForm; //тип значений которые мы вытаскиваем
         const { email, password } = target; //отправляем данные туда
-        if (!email.value || !password.value || checked === false) {
+        if (!email.value || !password.value || checked == false) {
             myError();
         }
         await sendLogin(email.value, password.value); //отправляем функцию для отправки на бэк
@@ -48,7 +48,7 @@ export function Auth() {
             await login({ email, password });
         } catch (error) {
             myError();
-            console.error(error);//тут будет ошибка от руса
+            console.error(error); //тут будет ошибка от руса
         }
     };
 
@@ -60,7 +60,9 @@ export function Auth() {
     return (
         <div className={styles["auth"]}>
             <h1>Вход</h1>
-            {(err !== "" || error)&& <div className={styles["error"]}>ошибка от руса</div>}
+            {(err !== "" || error) && (
+                <div className={styles["error"]}>ошибка от руса</div>
+            )}
             <form className={styles["form"]} onSubmit={submit}>
                 <div className={styles["form_logo"]}>
                     <label htmlFor="email">Email</label>
