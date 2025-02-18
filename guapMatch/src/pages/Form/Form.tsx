@@ -12,7 +12,7 @@ export type Form = {
         value: string;
     };
     avatar: {
-        value: string;
+        value: File;
     };
 };
 
@@ -31,7 +31,7 @@ export function Form() {
         seterror("");
         const target = event.target as typeof event.target & Form;
         const { age, course, avatar } = target;
-        const ava: string = avatar.value.toString();//отдельная функция для бэка, где передается изображение а возвращается юрл
+        const ava: string = avatar.value.toString(); //отдельная функция для бэка, где передается изображение а возвращается юрл
         console.log(age.value, course.value, ava); //ТУТ ВОЗНИКЛИ СЛОЖНОСТИ НАДО РАСПАРСИТЬ ФАЙЛ КАК ТО ОН НЕ ПЕРЕДАЕТСЯ
         await sendLogin(age.value, course.value, ava);
     };

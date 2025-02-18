@@ -11,6 +11,7 @@ import { Home } from "./pages/Home/Home.tsx";
 import { Svap } from "./pages/Svap/Svap.tsx";
 import { Messages } from "./pages/Messages/Messages.tsx";
 import { Profile } from "./pages/Profile/Profile.tsx";
+import { Main } from "./pages/Main/main.tsx";
 
 const router = createBrowserRouter([
     {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <AuthLayout />,
         children: [
+            {
+                path: 'main',
+                element: <Main/>
+            },
             {
                 path: "login",
                 element: <Auth />,

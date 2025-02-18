@@ -37,19 +37,16 @@ export function Register() {
         seterror("");
         const target = event.target as typeof event.target & RegisterForm; //тип значений которые мы вытаскиваем
         const { name, email, password } = target; //отправляем данные туда
-        if (!email.value || !password.value || !name.value || checked == false) {
+        if (
+            !email.value ||
+            !password.value ||
+            !name.value ||
+            checked == false
+        ) {
             myError();
         }
-        await sendLogin(name.value, email.value, password.value); //отправляем функцию для отправки на бэк
-    };
-
-    const sendLogin = async (name: string, email: string, password: string) => {
-        try {
-            await register({ name, email, password });
-        } catch (error) {
-            myError();
-            console.error(error); //тут будет ошибка от руса
-        }
+        // register({ emailReg, passwordReg });
+        register({email: email.value, password: password.value});
     };
 
     const [checked, setChecked] = useState(false);
@@ -60,7 +57,9 @@ export function Register() {
     return (
         <div className={styles["auth"]}>
             <h1>Регистрация</h1>
-            {(err !== "" || error!==null)&& <div className={styles["error"]}>{err}</div>}
+            {(err !== "" || error !== null) && (
+                <div className={styles["error"]}>{err}</div>
+            )}
             <form className={styles["form"]} onSubmit={submit}>
                 <div className={styles["form_logo"]}>
                     <label htmlFor="name">Имя</label>

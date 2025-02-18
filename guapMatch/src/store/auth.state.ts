@@ -52,7 +52,8 @@ const authSlice: StateCreator<
                     "Content-Type": "application/json",
                 },
             });
-            set({ accessToken: data, error: null });
+            set({ accessToken: data.accessToken, error: null });
+            console.log(data.accessToken);
         } catch (error) {
             if (error instanceof AxiosError) {
                 set({ error: error.response?.data });

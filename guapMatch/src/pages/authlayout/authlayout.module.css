@@ -1,7 +1,6 @@
 .auth_layout {
     display: flex;
     min-height: 100vh;
-    background: rgb(247, 210, 241);
     background: linear-gradient(
         6deg,
         rgba(211, 48, 127, 0.634) 0%,
