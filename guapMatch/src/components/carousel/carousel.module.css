@@ -1,73 +1,104 @@
-.carouselImg {
-    border-radius: 10px;
-    height: 400px;
-    max-width: 650px;
-    margin: auto;
+.Carousel {
+    position: relative;
     overflow: hidden;
+    max-height: 100vh;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0px auto;
+}
+
+.carouselTrack {
+    overflow: hidden;
+    display: flex;
+    gap: 100px;
+}
+
+.carouselInner {
+    display: flex;
+    gap: 200px;
+    justify-content: center;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carouselImgLarge {
+    width: 500px;
+    height: 370px;
+    border-radius: 10px;
+    border: 2px solid #a30d678e;
+}
+
+.carouselImgSmall {
+    width: 350px;
+    height: 275px;
+    border-radius: 10px;
+    opacity: 0.7;
+    border: 2px solid #a30d678e;
 }
 
 .carouselText {
-    text-align: center;
-    margin: 5px auto 15px auto;
-    font-size: 25px;
+    margin-bottom: 15px;
+    font-size: 40px;
     font-weight: 600;
     font-style: italic;
-    color: black;
-    text-shadow: 1px 1px 2px pink;
+    color: rgb(201, 201, 201);
+    text-shadow: 4px 4px 8px rgb(46, 30, 33);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    z-index: 1;
 }
 
-.carouselImg img {
-    width: 99%;
-    height: 99%;
-    border-radius: 20px;
-    border: #a30d678e solid 2px;
-}
 .slides {
     display: flex;
     justify-content: space-between;
+    position: absolute;
+    top: 40%;
+    width: 100%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
 }
+
 .slide-left,
 .slide-right {
     background-color: #fb666675;
     color: #fff;
-    padding: 10px 8px 8px 13px;
-    margin: 0 20px;
+    padding: 8px 12px;
     border-radius: 50%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 10px;
     height: 25px;
     width: 25px;
-}
-.slide-left {
-    left: 0;
-}
-.slide-right {
-    right: 0;
-}
-
-.slides :hover {
+    pointer-events: auto;
     cursor: pointer;
 }
 
+.slide-left {
+    left: 20px;
+}
+
+.slide-right {
+    right: 20px;
+}
+
 .indicator {
-    margin-top: 0;
-    margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 10px;
+    margin-top: 20px;
+    bottom: 10px;
+    left: 50%;
+    z-index: 1;
 }
+
 .dot {
     background-color: #333;
     width: 15px;
     height: 15px;
     border-radius: 50%;
-}
-.active {
-    background-color: #fa20a6;
+    cursor: pointer;
 }
 
-.Carousel{
-    overflow: hidden;
+.active {
+    background-color: #fa20a6;
 }

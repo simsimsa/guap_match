@@ -11,71 +11,96 @@ interface CarouselProps {
 }
 
 const Carousel = ({ images }: CarouselProps) => {
+    const [current, setCurrent] = useState(0);
 
-     const [direction, setDirection] = useState("left");
+    const handleNext = () => {
+        setCurrent((prevIndex) => (prevIndex + 1) % images.length);
+    };
 
-    const slideVariants = {
-        hiddenRight: {
-            x: "100%",
+    const handlePrevious = () => {
+        setCurrent(
+            (prevIndex) => (prevIndex - 1 + images.length) % images.length
+        );
+    };
+
+    const handleDotClick = (index: number) => {
+        setCurrent(index);
+    };
+
+    const getPrevIndex = (index: number) =>
+        (index - 1 + images.length) % images.length;
+    const getNextIndex = (index: number) => (index + 1) % images.length;
+
+    const textVariants = {
+        hidden: {
             opacity: 0,
-        },
-        hiddenLeft: {
-            x: "-100%",
-            opacity: 0,
+            y: -30,
         },
         visible: {
-            x: "0",
             opacity: 1,
-            transition: {
-                duration: 1,
-            },
+            x: -260,
+            y: -30,
+            transition: { duration: 0.5, delay: 2 },
         },
-        exit: {
-            opacity: 0,
-            scale: 0.8,
-            transition: {
-                duration: 0.5,
-            },
-        },
-    };
-
-
-    const [current, setcurrent] = useState(0);
-    const handleNext = () => {
-        setDirection("right");
-        setcurrent((prevIndex: number) =>
-            prevIndex + 1 === images.length ? 0 : prevIndex + 1
-        );
-    };
-    const handlePrevious = () => {
-        setDirection("left");
-        setcurrent((prevIndex) =>
-            prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-        );
-    };
-    const handleDotClick = (index: number) => {
-        setDirection(index > current ? "right" : "left");
-        setcurrent(index);
     };
 
     return (
-        <div className={styles["Carousel"]}>
-            <AnimatePresence>
-                <motion.img
-                    src={images[current].img}
-                    key={current}
-                    className={styles["carouselImg"]}
-                    variants={slideVariants}
-                    initial={
-                        direction === "right" ? "hiddenRight" : "hiddenLeft"
-                    }
-                    animate="visible"
-                    exit="exit"
-                />
-                <motion.div className={styles["carouselText"]}>
-                    {images[current].text}
-                </motion.div>
-            </AnimatePresence>
+        <div className={styles.Carousel}>
+            <div className={styles.carouselTrack}>
+                <AnimatePresence initial={false}>
+                    <motion.div
+                        className={styles.carouselInner}
+                        key={current}
+                        variants={{
+                            enter: {
+                                x: 0,
+                                y: 0,
+                                opacity: 1,
+                                transition: {
+                                    duration: 0.3,
+                                    type: "spring",
+                                    stiffness: 100,
+                                },
+                            },
+                            exit: (custom) => ({
+                                x: custom < current ? 500 : -500,
+                                y: 0,
+                                opacity: 1,
+                                transition: { duration: 0 },
+                            }),
+                        }}
+                        initial="exit"
+                        animate="enter"
+                        exit="exit"
+                        custom={current}
+                    >
+                        <motion.img
+                            src={images[getPrevIndex(current)].img}
+                            className={styles.carouselImgSmall}
+                            alt={images[getPrevIndex(current)].text}
+                        />
+                        <motion.img
+                            src={images[current].img}
+                            className={styles.carouselImgLarge}
+                            alt={images[current].text}
+                        />
+                        <motion.img
+                            src={images[getNextIndex(current)].img}
+                            className={styles.carouselImgSmall}
+                            alt={images[getNextIndex(current)].text}
+                        />
+
+                        <motion.div
+                            className={styles.carouselText}
+                            variants={textVariants}
+                            initial="hidden"
+                            animate="visible"
+                        >
+                            {images[current].text}
+                        </motion.div>
+                    </motion.div>
+                </AnimatePresence>
+            </div>
             <div className={styles["slides"]}>
                 <div className={styles["slide-left"]} onClick={handlePrevious}>
                     <svg

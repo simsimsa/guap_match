@@ -1,0 +1,24 @@
+.main {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.link{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    gap: 2px;
+    font-size: 24px;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+}
+
+.register {
+    text-decoration: none;
+    font-size: 26px;
+    font-weight: 600;
+    color: rgb(181, 6, 99);
+}

@@ -11,41 +11,42 @@ import { Home } from "./pages/Home/Home.tsx";
 import { Svap } from "./pages/Svap/Svap.tsx";
 import { Messages } from "./pages/Messages/Messages.tsx";
 import { Profile } from "./pages/Profile/Profile.tsx";
-import { Main } from "./pages/Main/main.tsx";
+import { Cover } from "./pages/Cover/Cover.tsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Layout />,
-        children:[
+        children: [
             {
-                path:'/',
-                element: <Home />
+                path: "/",
+                element: <Home />,
             },
             {
-                path:'/Svap',
-                element:<Svap/>
+                path: "/Svap",
+                element: <Svap />,
             },
             {
-                path: '/Messages',
-                element: <Messages/>
+                path: "/Messages",
+                element: <Messages />,
             },
             {
-                path: '/Profile',
-                element: <Profile/>
-            }
-        ]
-    },{
-        path:'/form',
-        element: <Form />
+                path: "/Profile",
+                element: <Profile />,
+            },
+        ],
+    },
+    {
+        path: "/form",
+        element: <Form />,
     },
     {
         path: "/auth",
         element: <AuthLayout />,
         children: [
             {
-                path: 'main',
-                element: <Main/>
+                path: "Main",
+                element: <Cover />,
             },
             {
                 path: "login",
