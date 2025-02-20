@@ -4,7 +4,7 @@ export type LoginUser = {
 }
 
 export type RegisterUser = {
-    /*name: string;*/
+    name: string;
     email: string;
     password: string;
 }

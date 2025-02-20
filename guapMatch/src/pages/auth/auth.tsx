@@ -4,6 +4,7 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../store/auth.state";
+import { toast, ToastContainer } from "react-toastify";
 //import { useLazyCurrentQuery, useLoginMutation } from "../../services/userApi";
 
 export type LoginForm = {
@@ -16,40 +17,31 @@ export type LoginForm = {
 };
 
 export function Auth() {
-    //const [login, {isLoading}] = useLoginMutation();//через бэк проверяю существование этого пользователя
-    const [err, seterror] = useState("");
     const navigate = useNavigate();
     const { login, accessToken, error } = useAuthStore();
-    //const [triggerCurrent] = useLazyCurrentQuery();//через бэк запрашиваю этого пользователя
+
+    const errorFunc = () => {
+        if (checked == false) {
+            toast.error("Подтвердите согласие на обработку данных", {
+                position: "bottom-right",
+                className: "error",
+            });
+        }
+    };
 
     useEffect(() => {
-        if (accessToken && err == "") {
+        if (accessToken && !error && checked) {
             navigate("/");
         }
     }, [accessToken, navigate]); //пока не делаю нужен токен, тут будет переход
 
-    const myError = () => {
-        seterror("Ошибка от Руса"); //тут моя ошибка улучшится
-    };
-
     const submit = async (event: FormEvent) => {
         event.preventDefault();
-        seterror("");
+        errorFunc();
         const target = event.target as typeof event.target & LoginForm; //тип значений которые мы вытаскиваем
         const { email, password } = target; //отправляем данные туда
-        if (!email.value || !password.value || checked == false) {
-            myError();
-        }
-        await sendLogin(email.value, password.value); //отправляем функцию для отправки на бэк
-    };
-
-    const sendLogin = async (email: string, password: string) => {
-        try {
-            await login({ email, password });
-        } catch (error) {
-            myError();
-            console.error(error); //тут будет ошибка от руса
-        }
+        await login({ email: email.value, password: password.value });
+        if (error){toast.error('Неверно введенные данные', {position: 'bottom-right'})}
     };
 
     const [checked, setChecked] = useState(false); //изначально галки нет
@@ -60,9 +52,6 @@ export function Auth() {
     return (
         <div className={styles["auth"]}>
             <h1>Вход</h1>
-            {(err !== "" || error) && (
-                <div className={styles["error"]}>ошибка от руса</div>
-            )}
             <form className={styles["form"]} onSubmit={submit}>
                 <div className={styles["form_logo"]}>
                     <label htmlFor="email">Email</label>
@@ -71,6 +60,7 @@ export function Auth() {
                         id="email"
                         placeholder="...@mail.ru"
                         name="email"
+                        autoComplete="off"
                     />
                 </div>
                 <div className={styles["form_logo"]}>
@@ -80,6 +70,7 @@ export function Auth() {
                         name="password"
                         type="password"
                         placeholder="password"
+                        autoComplete="off"
                     />
                 </div>
                 <div className={styles["chek"]}>
@@ -103,6 +94,7 @@ export function Auth() {
                     Зарегестрироваться!
                 </Link>
             </div>
+            <ToastContainer />
         </div>
     );
 }

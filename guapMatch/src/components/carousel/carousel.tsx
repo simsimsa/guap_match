@@ -57,7 +57,7 @@ const Carousel = ({ images }: CarouselProps) => {
                                 y: 0,
                                 opacity: 1,
                                 transition: {
-                                    duration: 0.3,
+                                    duration: 0.1,
                                     type: "spring",
                                     stiffness: 100,
                                 },

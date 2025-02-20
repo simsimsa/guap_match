@@ -4,6 +4,7 @@ import styles from "./register.module.css";
 import Input from "../../components/Input/Input";
 import { FormEvent, useEffect, useState } from "react";
 import { useAuthStore } from "../../store/auth.state";
+import { toast, ToastContainer } from "react-toastify";
 
 export type RegisterForm = {
     name: {
@@ -20,33 +21,39 @@ export type RegisterForm = {
 export function Register() {
     const navigate = useNavigate();
     const { register, accessToken, error } = useAuthStore();
-    const [err, seterror] = useState("");
 
     useEffect(() => {
-        if (accessToken) {
+        if (accessToken && !error && checked) {
             navigate("/form");
         }
     }, [accessToken, navigate]); //пока не делаю нужен токен, тут будет переход
 
-    const myError = () => {
-        seterror("Ошибка от Руса"); //тут моя ошибка улучшится
+    const errorFunc = () => {
+        if (checked == false) {
+            toast.error("Подтвердите согласие на обработку данных", {
+                position: "bottom-right",
+                className: styles["error"],
+            });
+        }
     };
 
     const submit = async (event: FormEvent) => {
         event.preventDefault();
-        seterror("");
+        errorFunc();
         const target = event.target as typeof event.target & RegisterForm; //тип значений которые мы вытаскиваем
         const { name, email, password } = target; //отправляем данные туда
-        if (
-            !email.value ||
-            !password.value ||
-            !name.value ||
-            checked == false
-        ) {
-            myError();
-        }
         // register({ emailReg, passwordReg });
-        register({email: email.value, password: password.value});
+        await register({
+            name: name.value,
+            email: email.value,
+            password: password.value,
+        });
+        if (error) {
+            toast.error("Неправильно введенные данные", {
+                position: "bottom-right",
+                className: styles["error"],
+            });
+        }
     };
 
     const [checked, setChecked] = useState(false);
@@ -57,9 +64,6 @@ export function Register() {
     return (
         <div className={styles["auth"]}>
             <h1>Регистрация</h1>
-            {(err !== "" || error !== null) && (
-                <div className={styles["error"]}>{err}</div>
-            )}
             <form className={styles["form"]} onSubmit={submit}>
                 <div className={styles["form_logo"]}>
                     <label htmlFor="name">Имя</label>
@@ -112,6 +116,7 @@ export function Register() {
                     Войти!
                 </Link>
             </div>
+            <ToastContainer />
         </div>
     );
 }
