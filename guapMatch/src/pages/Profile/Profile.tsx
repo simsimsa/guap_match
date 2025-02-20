@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import styles from "./Profile.module.css";
 import { useAuthStore } from "../../store/auth.state";
+import { User } from "./User";
 
 export function Profile() {
     const { logout, accessToken } = useAuthStore();
@@ -15,16 +16,10 @@ export function Profile() {
     };
 
     return (
-        <div>
-            Тут будет профиль
+        <div className={styles["profile_layout"]}>
+            <User />
             <div className={styles["exit"]}>
-                <Button
-                    className={styles["small"]}
-                    appear="small"
-                    onClick={exit}
-                >
-                    Выйти
-                </Button>
+                <Button onClick={exit}>Выйти</Button>
             </div>
         </div>
     );

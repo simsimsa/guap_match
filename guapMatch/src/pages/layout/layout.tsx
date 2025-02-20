@@ -42,7 +42,7 @@ export function Layout() {
                     </NavLink>
                 </div>
             </div>
-            <div>
+            <div className={styles['outlet']}>
                 <Outlet />
             </div>
         </div>

@@ -1,0 +1,124 @@
+.user_layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    border-right: 3px solid #e94057;
+    max-width: 1100px;
+    width: 100%;
+    border-left: 3px solid #e94057;
+    border-bottom: 3px solid #e94057;
+    position: relative;
+    background: white;
+}
+
+.img_backgroung {
+    width: 100%;
+    height: 100%;
+}
+
+.user_head {
+    margin-top: 15px;
+    display: flex;
+    justify-content: start;
+    gap: 50px;
+    width: 90%;
+}
+
+.user_photo {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    border: 2px solid #e94057;
+    border-radius: 15px;
+}
+
+.img_new {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 35px;
+    height: 35px;
+    background: rgba(213, 169, 208, 0.25);
+    border-radius: 15px;
+    border: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img_new:hover {
+    background: rgba(170, 136, 166, 0.25);
+    cursor: pointer;
+}
+
+.user_main {
+    display: flex;
+    gap: 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 36px;
+}
+
+.user_header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    background: rgba(213, 169, 208, 0.25);
+    border-radius: 15px;
+    border: 0;
+    position: absolute;
+    right: 15px;
+}
+
+.settings:hover {
+    background: rgba(170, 136, 166, 0.25);
+    cursor: pointer;
+}
+
+.user_info {
+    display: flex;
+    flex-direction: column;
+    gap: 39px;
+}
+
+.kategory {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(39, 2, 29);
+}
+
+.text_kategory {
+    font-size: 18px;
+    color: #000000d0;
+    line-height: 21px;
+    font-weight: 400;
+}
+
+.user_body {
+    width: 80%;
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 20px;
+    font-weight: 700;
+    color: rgb(39, 2, 29);
+}
+
+.user_gallery{
+    display: flex;
+    justify-content: space-between;
+}
