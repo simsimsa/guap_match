@@ -4,4 +4,5 @@ export const API = {
     login: `${PREFIX}/auth/login`,
     register: `${PREFIX}/auth/register`,
     profile: `${PREFIX}/users/me`,
+    updateProfile: `${PREFIX}/users/profile/updateprofile`,
 };

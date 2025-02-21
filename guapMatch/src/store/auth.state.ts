@@ -1,5 +1,5 @@
 import { create, StateCreator } from "zustand";
-import { LoginUser, RegisterUser, User } from "../types";
+import { LoginUser, RegisterUser, updateUser, User } from "../types";
 import axios, { AxiosError } from "axios";
 import { API } from "../constants";
 import { devtools, persist } from "zustand/middleware";
@@ -15,6 +15,7 @@ type AuthActions = {
     register: (requestData: RegisterUser) => void; //типизируем регистрашку
     getProfile: (accessToken: string) => void; //типизируем токен который к нам придет
     logout: (accessToken: string | null) => void;
+    updateProfile: (accessToken: string, updateData: updateUser) => void;
 };
 
 const authSlice: StateCreator<
@@ -78,6 +79,25 @@ const authSlice: StateCreator<
     logout: async (accessToken) => {
         if (accessToken) set({ accessToken: null });
     },
+    updateProfile: async (accessToken, updateData)=>{
+        try {
+            const { data } = await axios.patch<User>(
+                API.updateProfile,
+                updateData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            set({ user: data, error: null });
+        } catch (error) {
+            if (error instanceof AxiosError) {
+                set({ error: error.response?.data });
+            }
+        }
+    }
 });
 
 export const useAuthStore = create<AuthActions & AuthSate>()(
