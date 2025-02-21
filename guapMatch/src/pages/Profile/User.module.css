@@ -118,38 +118,40 @@
     color: rgb(39, 2, 29);
 }
 
-
-.user_gallery{
+.user_gallery {
     display: flex;
     justify-content: space-between;
 }
 
-.photo_user{
+.photo_user {
     object-fit: contain;
-    max-width: 30%;
+    max-width: 100%;
     border-radius: 10%;
 }
-.gallery_img{
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    padding: 15px;
+.gallery_img {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: center;
-    justify-content: space-between;
+    overflow: hidden;
+    gap: 10px;
+    padding: 15px;
     margin-top: 10px;
 }
 
-.all_photos{
-    color: #E94057;
+.hidden_gallery {
+    max-height: 292px;
+}
+
+.all_photos {
+    color: #e94057;
     font-size: 20px;
     cursor: pointer;
     font-weight: 600;
+    background: none;
+    border: none;
+    font-style: italic;
 }
 
-.hr_gallery{
-    color: #e47a88;
-    height: 1px;
-    min-width: 100%;
-    margin-top: 35px;
-    background: #e6a1aa;
+.all_photos:hover {
+    color: #b93345;
 }

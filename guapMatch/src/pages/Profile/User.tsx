@@ -1,4 +1,6 @@
+import { useState } from "react";
 import styles from "./User.module.css";
+import cn from "classnames";
 
 const testImg = [
     "./test1.jpg",
@@ -10,6 +12,19 @@ const testImg = [
 ];
 
 export function User() {
+    const [seephotos, setSeephotos] = useState("See all");
+    const [appear, setappear] = useState(true);
+
+    const SeeAll = () => {
+        if (seephotos == "See all") {
+            setSeephotos("Close");
+            setappear(false);
+        } else {
+            setSeephotos("See all");
+            setappear(true);
+        }
+    };
+
     return (
         <div className={styles["user_layout"]}>
             <div className={styles["user_head"]}>
@@ -60,9 +75,15 @@ export function User() {
             <div className={styles["user_body"]}>
                 <div className={styles["user_gallery"]}>
                     <div>Gallery</div>
-                    <div className={styles["all_photos"]}>See all</div>
+                    <button onClick={SeeAll} className={styles["all_photos"]}>
+                        {seephotos}
+                    </button>
                 </div>
-                <div className={styles["gallery_img"]}>
+                <div
+                    className={cn(styles["gallery_img"], {
+                        [styles["hidden_gallery"]]: appear ,
+                    })}
+                >
                     {testImg.map((photo) => {
                         return (
                             <img src={photo} className={styles["photo_user"]} />
