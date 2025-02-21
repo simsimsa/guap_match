@@ -128,6 +128,12 @@
     max-width: 100%;
     border-radius: 10%;
 }
+
+.photo_user:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
 .gallery_img {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -154,4 +160,12 @@
 
 .all_photos:hover {
     color: #b93345;
+}
+
+.big_image{
+    max-width: 500px;
+}
+
+.big_image:hover {
+    opacity: 1;
 }

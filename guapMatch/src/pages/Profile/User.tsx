@@ -14,6 +14,7 @@ const testImg = [
 export function User() {
     const [seephotos, setSeephotos] = useState("See all");
     const [appear, setappear] = useState(true);
+    const [numberImg, setnumberImg]=useState(-1);
 
     const SeeAll = () => {
         if (seephotos == "See all") {
@@ -24,6 +25,7 @@ export function User() {
             setappear(true);
         }
     };
+
 
     return (
         <div className={styles["user_layout"]}>
@@ -81,12 +83,25 @@ export function User() {
                 </div>
                 <div
                     className={cn(styles["gallery_img"], {
-                        [styles["hidden_gallery"]]: appear ,
+                        [styles["hidden_gallery"]]: appear,
                     })}
                 >
-                    {testImg.map((photo) => {
+                    {testImg.map((photo, index) => {
                         return (
-                            <img src={photo} className={styles["photo_user"]} />
+                            <div className={styles["photo_container"]}>
+                                <img
+                                    src={photo}
+                                    className={cn(styles["photo_user"], {
+                                        [styles["big_image"]]:
+                                            numberImg == index &&
+                                            seephotos == "Close"
+                                    })}
+                                    onClick={() => {
+                                        if (seephotos == "Close")
+                                            setnumberImg(index);
+                                    }}
+                                />
+                            </div>
                         );
                     })}
                 </div>
