@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
     border-right: 3px solid #e94057;
     max-width: 1100px;
@@ -108,8 +108,8 @@
 }
 
 .user_body {
-    width: 80%;
     margin-top: 35px;
+    width: 80%;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -118,7 +118,38 @@
     color: rgb(39, 2, 29);
 }
 
+
 .user_gallery{
     display: flex;
     justify-content: space-between;
+}
+
+.photo_user{
+    object-fit: contain;
+    max-width: 30%;
+    border-radius: 10%;
+}
+.gallery_img{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 15px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.all_photos{
+    color: #E94057;
+    font-size: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.hr_gallery{
+    color: #e47a88;
+    height: 1px;
+    min-width: 100%;
+    margin-top: 35px;
+    background: #e6a1aa;
 }
