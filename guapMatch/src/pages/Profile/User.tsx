@@ -14,7 +14,7 @@ const testImg = [
 export function User() {
     const [seephotos, setSeephotos] = useState("See all");
     const [appear, setappear] = useState(true);
-    const [numberImg, setnumberImg]=useState(-1);
+    const [numberImg, setnumberImg] = useState(-1);
 
     const SeeAll = () => {
         if (seephotos == "See all") {
@@ -26,6 +26,13 @@ export function User() {
         }
     };
 
+    const handleImageClick = (index: number) => {
+        if (numberImg === index) {
+            setnumberImg(-1); // Сброс выбора, если изображение уже выбрано
+        } else {
+            setnumberImg(index); // Выбор нового изображения
+        }
+    };
 
     return (
         <div className={styles["user_layout"]}>
@@ -88,17 +95,26 @@ export function User() {
                 >
                     {testImg.map((photo, index) => {
                         return (
-                            <div className={styles["photo_container"]}>
+                            <div
+                                className={cn(styles["photo_container"], {
+                                    [styles["big_image_container"]]:
+                                        numberImg === index &&
+                                        seephotos == "Close",
+                                })}
+                                key={index}
+                                style={{
+                                    order: numberImg === index ? -1 : 0, // Динамический order
+                                }}
+                            >
                                 <img
                                     src={photo}
                                     className={cn(styles["photo_user"], {
                                         [styles["big_image"]]:
                                             numberImg == index &&
-                                            seephotos == "Close"
+                                            seephotos == "Close",
                                     })}
                                     onClick={() => {
-                                        if (seephotos == "Close")
-                                            setnumberImg(index);
+                                        handleImageClick(index);
                                     }}
                                 />
                             </div>
