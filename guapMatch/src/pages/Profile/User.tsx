@@ -28,9 +28,9 @@ export function User() {
 
     const handleImageClick = (index: number) => {
         if (numberImg === index) {
-            setnumberImg(-1); // Сброс выбора, если изображение уже выбрано
+            setnumberImg(-1); 
         } else {
-            setnumberImg(index); // Выбор нового изображения
+            setnumberImg(index); 
         }
     };
 
@@ -103,7 +103,7 @@ export function User() {
                                 })}
                                 key={index}
                                 style={{
-                                    order: numberImg === index ? -1 : 0, // Динамический order
+                                    order: numberImg === index ? -1 : 0, 
                                 }}
                             >
                                 <img
