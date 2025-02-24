@@ -37,7 +37,7 @@ h1 {
 }
 
 .chek label {
-    color: rgb(53, 44, 49);
+    color: rgb(0, 0, 0);
     font-size: 15px;
     font-style: italic;
 }
@@ -55,17 +55,19 @@ h1 {
     flex-direction: column;
     align-items: center;
     gap: 2px;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
-    color: rgb(53, 44, 49);
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     margin-bottom: 20px;
 }
 
+
 .register {
     text-decoration: none;
-
-    color: rgb(181, 6, 99);
+    font-size: 26px;
+    font-weight: 600;
+    color: rgb(240 223 232);
 }
 
 .error{

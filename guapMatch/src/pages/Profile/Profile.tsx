@@ -11,7 +11,6 @@ export function Profile() {
 
     const exit = () => {
         logout(accessToken);
-        //как будет бэк добавлю реализацию выхода через токен
         navigate("/auth/login");
     };
 

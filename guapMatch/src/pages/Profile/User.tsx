@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "./User.module.css";
 import cn from "classnames";
+import { Link } from "react-router-dom";
 
 const testImg = [
     "./test1.jpg",
@@ -28,9 +29,9 @@ export function User() {
 
     const handleImageClick = (index: number) => {
         if (numberImg === index) {
-            setnumberImg(-1); 
+            setnumberImg(-1);
         } else {
-            setnumberImg(index); 
+            setnumberImg(index);
         }
     };
 
@@ -53,9 +54,11 @@ export function User() {
                             </div>
                             <div className={styles["user_age"]}>21</div>
                         </div>
-                        <button className={styles["settings"]}>
-                            <img src="./settings.svg" />
-                        </button>
+                        <Link to='./Settings' className={styles["settings"]}>
+                            <img
+                                src="./settings.svg"
+                            />
+                        </Link>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>
@@ -103,7 +106,7 @@ export function User() {
                                 })}
                                 key={index}
                                 style={{
-                                    order: numberImg === index ? -1 : 0, 
+                                    order: numberImg === index ? -1 : 0,
                                 }}
                             >
                                 <img

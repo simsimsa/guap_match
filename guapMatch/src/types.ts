@@ -12,7 +12,7 @@ export type RegisterUser = {
 export type updateUser = {
     name?: string;
     password?: string;
-    gender?: string;
+    gender?: "MALE"|'FEMALE';
     age?: string;
     napravl?: string;
     course?: string;
@@ -32,7 +32,5 @@ export interface User {
     napravl: string;
     locked: boolean;
     role: "USER";
-    authority: string;
     active: boolean;
-    frontendStatus: boolean;
 }

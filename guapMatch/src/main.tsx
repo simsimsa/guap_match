@@ -12,6 +12,7 @@ import { Svap } from "./pages/Svap/Svap.tsx";
 import { Messages } from "./pages/Messages/Messages.tsx";
 import { Profile } from "./pages/Profile/Profile.tsx";
 import { Cover } from "./pages/Cover/Cover.tsx";
+import { Settings } from "./pages/Settings/Settings.tsx";
 
 const router = createBrowserRouter([
     {
@@ -33,7 +34,11 @@ const router = createBrowserRouter([
             {
                 path: "/Profile",
                 element: <Profile />,
-            }
+            },
+            {
+                path: "/Profile/Settings",
+                element: <Settings />,
+            },
         ],
     },
     {
