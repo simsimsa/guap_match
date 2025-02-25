@@ -16,6 +16,8 @@ export function User() {
     const [seephotos, setSeephotos] = useState("See all");
     const [appear, setappear] = useState(true);
     const [numberImg, setnumberImg] = useState(-1);
+    const [edit, setedit] = useState(false);
+    const [addDisplay, setaddDisplay] = useState(false);
 
     const SeeAll = () => {
         if (seephotos == "See all") {
@@ -37,6 +39,33 @@ export function User() {
 
     return (
         <div className={styles["user_layout"]}>
+            <div
+                className={cn(styles["addDisplay"], {
+                    [styles["hidden"]]: addDisplay === false,
+                })}
+            >
+                <div className={styles["display"]}>
+                    <button
+                        className={styles["cross_img_label"]}
+                        onClick={() => setaddDisplay(false)}
+                    >
+                        <img src="./cross.svg" alt="" />
+                    </button>
+                    <div className={styles["main"]}>
+                        <div className={styles["header"]}>
+                            Вы точно хотите удалить фотографию?
+                        </div>
+                        <div>
+                            <button
+                                className={styles["yes"]}
+                                onClick={() => setaddDisplay(false)} //тут будет функция для бэка и удаления фотографии
+                            >
+                                Да
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className={styles["user_head"]}>
                 <div
                     className={styles["user_photo"]}
@@ -54,10 +83,8 @@ export function User() {
                             </div>
                             <div className={styles["user_age"]}>21</div>
                         </div>
-                        <Link to='./Settings' className={styles["settings"]}>
-                            <img
-                                src="./settings.svg"
-                            />
+                        <Link to="./Settings" className={styles["settings"]}>
+                            <img src="./settings.svg" />
                         </Link>
                     </div>
                     <div className={styles["kategory"]}>
@@ -87,15 +114,44 @@ export function User() {
             <div className={styles["user_body"]}>
                 <div className={styles["user_gallery"]}>
                     <div>Gallery</div>
-                    <button onClick={SeeAll} className={styles["all_photos"]}>
+                    <button
+                        onClick={SeeAll}
+                        className={cn(styles["all_photos"], {
+                            [styles["hidden"]]: edit === true,
+                        })}
+                    >
                         {seephotos}
+                    </button>
+                    <button
+                        onClick={() => setedit(false)}
+                        className={cn(styles["all_photos"], {
+                            [styles["hidden"]]: edit === false,
+                        })}
+                    >
+                        Edit
                     </button>
                 </div>
                 <div
                     className={cn(styles["gallery_img"], {
-                        [styles["hidden_gallery"]]: appear,
+                        [styles["hidden_gallery"]]: appear && edit === false,
                     })}
                 >
+                    <button
+                        onClick={() => setedit(true)}
+                        className={cn(styles["edit_gallery"], {
+                            [styles["hidden"]]:
+                                seephotos == "Close" || edit === true,
+                        })}
+                    >
+                        <img src="./edit_gallery.svg" alt="" />
+                    </button>
+                    <button //тут будет onClicke на добавление фотографии
+                        className={cn(styles["edit_gallery"], {
+                            [styles["hidden"]]: edit === false,
+                        })}
+                    >
+                        <img src="./add_gallery.svg" alt="" />
+                    </button>
                     {testImg.map((photo, index) => {
                         return (
                             <div
@@ -106,7 +162,7 @@ export function User() {
                                 })}
                                 key={index}
                                 style={{
-                                    order: numberImg === index ? -1 : 0,
+                                    order: numberImg === index ? 0 : 1,
                                 }}
                             >
                                 <img
@@ -114,12 +170,24 @@ export function User() {
                                     className={cn(styles["photo_user"], {
                                         [styles["big_image"]]:
                                             numberImg == index &&
-                                            seephotos == "Close",
+                                            seephotos == "Close" &&
+                                            edit === false,
                                     })}
                                     onClick={() => {
                                         handleImageClick(index);
                                     }}
                                 />
+                                <button
+                                    className={cn(styles["cross_img"], {
+                                        [styles["hidden"]]: edit === false,
+                                    })}
+                                >
+                                    <img
+                                        src="./cross.svg"
+                                        alt=""
+                                        onClick={() => setaddDisplay(true)}
+                                    />
+                                </button>
                             </div>
                         );
                     })}
