@@ -108,6 +108,7 @@
     line-height: 21px;
     font-weight: 400;
     font-style: italic;
+    max-width: 800px;
 }
 
 .user_body {

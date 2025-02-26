@@ -1,14 +1,84 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Settings.module.css";
+import { FormEvent, useEffect, useState } from "react";
+import { useAuthStore } from "../../store/auth.state";
+
+export type Form = {
+    name: {
+        value: string;
+    };
+    age: {
+        value: number;
+    };
+    course: {
+        value: string;
+    };
+    napravl: {
+        value: string;
+    };
+    life: {
+        value: string;
+    };
+    home: {
+        value: string;
+    };
+    aboutYou: {
+        value: string;
+    };
+};
 
 export function Settings() {
+    const [clicked, setclicked] = useState(false)
+    const { updateProfile, getProfile, accessToken, user, error } =
+        useAuthStore();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (error == null && clicked) {
+            navigate("/Profile");
+        }
+    }, [error, navigate, clicked]);
+
+    useEffect(() => {
+        if (accessToken) {
+            getProfile(accessToken);
+        }
+    }, [accessToken]);
+
+    const submit = async (event: FormEvent) => {
+        event.preventDefault();
+        const target = event.target as typeof event.target & Form;
+        const { name, age, course, napravl, life, home, aboutYou } = target;
+        console.log(
+            name.value,
+            age.value,
+            napravl.value,
+            course.value,
+            life.value,
+            home.value,
+            aboutYou.value,
+            typeof age.value
+        );
+        if (accessToken) {
+            updateProfile(accessToken, {
+                name: name.value,
+                age: Number(age.value),
+                napravl: napravl.value,
+                course: course.value,
+                life: life.value,
+                home: home.value,
+                aboutYou: aboutYou.value,
+            });
+        }
+        console.log(name.value)
+        console.log(error);
+    };
 
     return (
         <div className={styles["label"]}>
-            <div className={styles["label_settings"]}>
+            <form className={styles["label_settings"]} onSubmit={submit}>
                 <div className={styles["header"]}>
                     <h2 className={styles["h2"]}>Отредактируйте данные</h2>
                     <Link to="/Profile" className={styles["profile"]}>
@@ -23,7 +93,7 @@ export function Settings() {
                         name="name"
                         placeholder="Ваше имя"
                         autoComplete="off"
-                        defaultValue={"Тестовый юзер"} //в таких полях будут значения с бэка
+                        defaultValue={user?.name} //в таких полях будут значения с бэка
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -34,7 +104,7 @@ export function Settings() {
                         name="age"
                         placeholder="Ваш возраст"
                         autoComplete="off"
-                        defaultValue={"19"}
+                        defaultValue={user?.age}
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -45,7 +115,7 @@ export function Settings() {
                         name="napravl"
                         placeholder="Ваше направление"
                         autoComplete="off"
-                        defaultValue={"Информатика и вычислительная техника"}
+                        defaultValue={user?.napravl}
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -56,7 +126,7 @@ export function Settings() {
                         name="course"
                         placeholder="Ваш курс"
                         autoComplete="off"
-                        defaultValue={"2"}
+                        defaultValue={user?.course}
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -67,7 +137,7 @@ export function Settings() {
                         name="life"
                         placeholder="Место вашего проживания"
                         autoComplete="off"
-                        defaultValue={"Общежитие №2"}
+                        defaultValue={user?.life}
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -78,7 +148,7 @@ export function Settings() {
                         name="home"
                         placeholder="Ваш родной город"
                         autoComplete="off"
-                        defaultValue={"Сыктывкар"}
+                        defaultValue={user?.home}
                     />
                 </div>
                 <div className={styles["profile_div"]}>
@@ -91,11 +161,13 @@ export function Settings() {
                         placeholder="О себе"
                         className={styles["textarea"]}
                         autoComplete="off"
-                        defaultValue={"Тут информация о себе"}
+                        defaultValue={user?.aboutYou}
                     />
                 </div>
-            </div>
-            <Button onClick={() => navigate("/Profile")}>Редактировать</Button>
+                <Button onClick={()=>{setclicked(true)}}>
+                    Редактировать
+                </Button>
+            </form>
         </div>
     );
 }

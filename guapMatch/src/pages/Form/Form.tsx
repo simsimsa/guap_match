@@ -1,13 +1,17 @@
-import { FormEvent, SetStateAction, useState } from "react";
+import { FormEvent, SetStateAction, useEffect, useState } from "react";
 import Button from "../../components/Button/Button";
 import Input from "../../components/Input/Input";
 import styles from "./Form.module.css";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { useAuthStore } from "../../store/auth.state";
 
 export type Form = {
+    gender: {
+        value: "FEMALE" | "MALE";
+    };
     age: {
-        value: string;
+        value: number;
     };
     course: {
         value: string;
@@ -24,12 +28,22 @@ export type Form = {
     home: {
         value: string;
     };
+    aboutYou: {
+        value: string;
+    };
 };
 
 export function Form() {
+    const { updateProfile, accessToken, error } = useAuthStore();
     const navigate = useNavigate();
     const [textt, settextt] = useState("Загрузить аватар");
-    const [value, setvalue] = useState("woman"); //для чекаута пола
+    const [value, setvalue] = useState("FEMALE"); //для чекаута пола
+
+    useEffect(() => {
+        if (error==null) {
+            navigate("/Profile");
+        }
+    }, [error, navigate]);
 
     const errorFunc = () => {
         toast.warning("Заполните все поля анкеты", {
@@ -46,35 +60,38 @@ export function Form() {
     const submit = async (event: FormEvent) => {
         event.preventDefault();
         const target = event.target as typeof event.target & Form;
-        const { age, course, avatar, napravl, life, home } = target;
-        //const ava: string = avatar.value.toString(); //отдельная функция для бэка, где передается изображение а возвращается юрл
-        console.log(age.value, course.value, avatar.value); //ТУТ ВОЗНИКЛИ СЛОЖНОСТИ
-        //await sendLogin(age.value, course.value, avatar.value); //тут будет функция на бэк
+        const { gender, age, course, napravl, life, home, aboutYou } = target;
+        console.log(
+            gender.value,
+            age.value,
+            napravl.value,
+            course.value,
+            life.value,
+            home.value,
+            aboutYou.value,
+            typeof age.value
+        );
+        if (accessToken) {
+            updateProfile(accessToken, {
+                gender: gender.value,
+                age: Number(age.value),
+                napravl: napravl.value,
+                course: course.value,
+                life: life.value,
+                home: home.value,
+                aboutYou: aboutYou.value,
+            });
+        }
         if (
-            !age.value.trim() &&
+            !age.value &&
             !course.value.trim() &&
             !napravl.value.trim() &&
             !life.value.trim() &&
             !home.value.trim()
         ) {
             errorFunc();
-        } else {
-            navigate("/");
         }
     };
-
-    /*const sendLogin = async (age: string, course: string, ava: File) => {
-        if (
-            age !== "" &&
-            course !== "" &&
-            !ava 
-        ) {
-            localStorage.setItem(age, course);
-            console.log("все заебись");
-            navigate("/");
-        } 
-    };*/
-    //строки выше будут не нужны, все через zustand
 
     return (
         <div className={styles["layout"]}>
@@ -89,24 +106,24 @@ export function Form() {
                         <div className={styles["gender"]}>
                             <input
                                 type="radio"
-                                id="woman"
+                                id="FEMALE"
                                 name="gender"
-                                value="woman"
-                                checked={value === "woman" ? true : false}
+                                value="FEMALE"
+                                checked={value === "FEMALE" ? true : false}
                                 onChange={chek}
                             />
-                            <label htmlFor="woman">Девушка</label>
+                            <label htmlFor="FEMALE">Девушка</label>
                         </div>
                         <div className={styles["gender"]}>
                             <input
                                 type="radio"
-                                id="man"
+                                id="MALE"
                                 name="gender"
-                                value="man"
-                                checked={value === "man" ? true : false}
+                                value="MALE"
+                                checked={value === "MALE" ? true : false}
                                 onChange={chek}
                             />
-                            <label htmlFor="man">Парень</label>
+                            <label htmlFor="MALE">Парень</label>
                         </div>
                     </div>
                     <div className={styles["profile_div"]}>

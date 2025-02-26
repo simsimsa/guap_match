@@ -27,7 +27,7 @@ const authSlice: StateCreator<
     user: null,
     login: async ({ email, password }) => {
         try {
-            const { data } = await axios.post<string>(
+            const { data } = await axios.post(
                 API.login,
                 {
                     email,
@@ -39,7 +39,7 @@ const authSlice: StateCreator<
                     },
                 }
             );
-            set({ accessToken: data, error: null }); //получаем токен при успехе
+            set({ accessToken: data.accessToken, error: null }); //получаем токен при успехе
         } catch (error) {
             if (error instanceof AxiosError) {
                 set({ error: error.response?.data.message }); //указываем ошибку
@@ -73,6 +73,7 @@ const authSlice: StateCreator<
         } catch (error) {
             if (error instanceof AxiosError) {
                 set({ error: error.response?.data }); //если что-то пошло не так
+                console.log(error);
             }
         }
     },

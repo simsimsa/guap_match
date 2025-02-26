@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./User.module.css";
 import cn from "classnames";
 import { Link } from "react-router-dom";
+import { useAuthStore } from "../../store/auth.state";
 
 const testImg = [
     "./test1.jpg",
@@ -13,11 +14,18 @@ const testImg = [
 ];
 
 export function User() {
+    const { getProfile, accessToken, user } = useAuthStore();
     const [seephotos, setSeephotos] = useState("See all");
     const [appear, setappear] = useState(true);
     const [numberImg, setnumberImg] = useState(-1);
     const [edit, setedit] = useState(false);
     const [addDisplay, setaddDisplay] = useState(false);
+
+    useEffect(() => {
+        if (accessToken) {
+            getProfile(accessToken);
+        }
+    }, [accessToken]);
 
     const SeeAll = () => {
         if (seephotos == "See all") {
@@ -79,9 +87,9 @@ export function User() {
                     <div className={styles["user_header"]}>
                         <div className={styles["user_main"]}>
                             <div className={styles["user_name"]}>
-                                Тестовый юзер
+                                {user?.name},
                             </div>
-                            <div className={styles["user_age"]}>21</div>
+                            <div className={styles["user_age"]}>{user?.age} лет</div>
                         </div>
                         <Link to="./Settings" className={styles["settings"]}>
                             <img src="./settings.svg" />
@@ -89,26 +97,26 @@ export function User() {
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>
-                            Информатика и вычислительная техника
+                            {user?.napravl}
                         </div>
-                        <div className={styles["text_kategory"]}>2 курс</div>
+                        <div className={styles["text_kategory"]}>{user?.course} курс</div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Место проживания</div>
                         <div className={styles["text_kategory"]}>
-                            Общежитие №2
+                            {user?.life}
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Родной город</div>
-                        <div className={styles["text_kategory"]}>Сыктывкар</div>
+                        <div className={styles["text_kategory"]}>{user?.home}</div>
                     </div>
                 </div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["title"]}>О себе</div>
                 <div className={styles["text_kategory"]}>
-                    Здесь будет о себе
+                    {user?.aboutYou}
                 </div>
             </div>
             <div className={styles["user_body"]}>

@@ -12,14 +12,14 @@ export type RegisterUser = {
 export type updateUser = {
     name?: string;
     password?: string;
-    gender?: "MALE"|'FEMALE';
-    age?: string;
-    napravl?: string;
-    course?: string;
-    life?: string;
-    home?: string;
-    aboutYou?:string;
-    avatar?: string;
+    gender?: "FEMALE" | "MALE" ;
+    age?: null | number;
+    napravl?: null | string;
+    course?: null | string;
+    life?: null | string;
+    home?: null | string;
+    aboutYou?: null | string;
+    avatarPath?: null | string;
 };
 
 export interface User {
@@ -33,4 +33,8 @@ export interface User {
     locked: boolean;
     role: "USER";
     active: boolean;
+    course: string;
+    life?: string;
+    home?: string;
+    aboutYou?: string;
 }
