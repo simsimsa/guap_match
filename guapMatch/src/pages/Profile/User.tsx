@@ -89,17 +89,19 @@ export function User() {
                             <div className={styles["user_name"]}>
                                 {user?.name},
                             </div>
-                            <div className={styles["user_age"]}>{user?.age} лет</div>
+                            <div className={styles["user_age"]}>
+                                {user?.age} лет
+                            </div>
                         </div>
                         <Link to="./Settings" className={styles["settings"]}>
                             <img src="./settings.svg" />
                         </Link>
                     </div>
                     <div className={styles["kategory"]}>
-                        <div className={styles["title"]}>
-                            {user?.napravl}
+                        <div className={styles["title"]}>{user?.napravl}</div>
+                        <div className={styles["text_kategory"]}>
+                            {user?.course} курс
                         </div>
-                        <div className={styles["text_kategory"]}>{user?.course} курс</div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Место проживания</div>
@@ -109,15 +111,15 @@ export function User() {
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Родной город</div>
-                        <div className={styles["text_kategory"]}>{user?.home}</div>
+                        <div className={styles["text_kategory"]}>
+                            {user?.home}
+                        </div>
                     </div>
                 </div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["title"]}>О себе</div>
-                <div className={styles["text_kategory"]}>
-                    {user?.aboutYou}
-                </div>
+                <div className={styles["text_kategory"]}>{user?.aboutYou}</div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["user_gallery"]}>
@@ -163,15 +165,18 @@ export function User() {
                     {testImg.map((photo, index) => {
                         return (
                             <div
-                                className={cn(styles["photo_container"], {
-                                    [styles["big_image_container"]]:
-                                        numberImg === index &&
-                                        seephotos == "Close",
-                                })}
-                                key={index}
                                 style={{
                                     order: numberImg === index ? 0 : 1,
                                 }}
+                                className={cn(
+                                    {
+                                        [styles["big_image_container"]]:
+                                            numberImg === index &&
+                                            seephotos == "Close",
+                                    },
+                                    styles["photo_container"]
+                                )}
+                                key={index}
                             >
                                 <img
                                     src={photo}

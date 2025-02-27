@@ -1,0 +1,185 @@
+.MatchLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Match {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    border-right: 3px solid #e94057;
+    max-width: 1100px;
+    width: 100%;
+    border-left: 3px solid #e94057;
+    border-bottom: 3px solid #e94057;
+    position: relative;
+    background: white;
+    padding: 45px;
+}
+
+.Match_header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.match_h1 {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 51px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(213, 169, 208, 0.25);
+    border-radius: 15px;
+    border: 0;
+    position: absolute;
+    right: 45px;
+}
+
+.filter:hover {
+    background: rgba(170, 136, 166, 0.25);
+    cursor: pointer;
+}
+
+.match_header_body {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: #280423cb;
+}
+
+.hrIn {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.hr_line {
+    color: #e8e6ea;
+    margin-top: 12px;
+}
+
+.textInHr {
+    position: absolute;
+    top: 0px;
+    right: 47%;
+    background: white;
+    padding: 0 10px;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: #280423cb;
+}
+
+.gallery_img {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    gap: 10px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.photo_user {
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+    max-width: 100%;
+    border-radius: 10%;
+    pointer-events: none;
+}
+
+.photo_container {
+    height: 297px;
+    position: relative;
+}
+
+.matchBody {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.matchUserInfo {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    backdrop-filter: blur(1px);
+    border-radius: 10%;
+}
+
+.matchInfoHeader {
+    display: flex;
+    gap: 5px;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: white;
+}
+
+.YesOrNo {
+    display: flex;
+    gap: 0px;
+    width: 100%;
+    justify-content: center;
+    border-end-start-radius: 10%;
+}
+
+.MatchYes,
+.MatchNo {
+    width: 100%;
+    backdrop-filter: blur(35px);
+    background: rgba(128, 128, 128, 0.327);
+    border: none;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.MatchYes:hover {
+    background-color: rgba(0, 128, 0, 0.322);
+}
+
+.MatchYes {
+    border-right: 1px solid white;
+    border-end-start-radius: 35%;
+}
+
+.MatchNo {
+    border-end-end-radius: 35%;
+}
+
+.MatchNo:hover {
+    background-color: rgba(128, 0, 0, 0.322);
+}

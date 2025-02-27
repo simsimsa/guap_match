@@ -17,12 +17,12 @@ export function Layout() {
                         Home
                     </NavLink>
                     <NavLink
-                        to="/Svap"
+                        to="/Match"
                         className={({ isActive }) =>
                             cn(styles["goTo"], { [styles.active]: isActive })
                         }
                     >
-                        Svap
+                        Match
                     </NavLink>
                     <NavLink
                         to="/Messages"
