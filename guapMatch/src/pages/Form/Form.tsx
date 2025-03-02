@@ -34,16 +34,10 @@ export type Form = {
 };
 
 export function Form() {
-    const { updateProfile, accessToken, error } = useAuthStore();
+    const { updateProfile, accessToken, error, user } = useAuthStore();
     const navigate = useNavigate();
     const [textt, settextt] = useState("Загрузить аватар");
     const [value, setvalue] = useState("FEMALE"); //для чекаута пола
-
-    useEffect(() => {
-        if (error==null) {
-            navigate("/Profile");
-        }
-    }, [error, navigate]);
 
     const errorFunc = () => {
         toast.warning("Заполните все поля анкеты", {
@@ -51,6 +45,12 @@ export function Form() {
             className: "error",
         });
     };
+
+    useEffect(() => {
+        if (!error && user?.age) {
+            navigate("/Profile");
+        }
+    }, [error, user, navigate]);
 
     //Функция для смены чекаута пола
     function chek(event: { target: { value: SetStateAction<string> } }) {
@@ -105,6 +105,7 @@ export function Form() {
                         <legend>Пол:</legend>
                         <div className={styles["gender"]}>
                             <input
+                                required
                                 type="radio"
                                 id="FEMALE"
                                 name="gender"

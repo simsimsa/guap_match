@@ -93,7 +93,7 @@ export function User() {
                                 {user?.age} лет
                             </div>
                         </div>
-                        <Link to="./Settings" className={styles["settings"]}>
+                        <Link to="/Settings" className={styles["settings"]}>
                             <img src="./settings.svg" />
                         </Link>
                     </div>

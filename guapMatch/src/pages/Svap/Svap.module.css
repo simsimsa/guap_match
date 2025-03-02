@@ -183,3 +183,16 @@
 .MatchNo:hover {
     background-color: rgba(128, 0, 0, 0.322);
 }
+
+.filter_display {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.hidden {
+    display: none;
+}

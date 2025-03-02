@@ -1,4 +1,7 @@
+import { Outlet } from "react-router-dom";
 import styles from "./Svap.module.css";
+import { useState } from "react";
+import cn from "classnames";
 
 const testImg = [
     "./test1.jpg",
@@ -10,10 +13,12 @@ const testImg = [
 ];
 
 export function Match() {
+    const [filtr, setfiltr] = useState(false);
+
     return (
         <div className={styles["MatchLayout"]}>
             <div className={styles["Match"]}>
-                <button className={styles["filter"]}>
+                <button className={styles["filter"]} onClick={()=>{setfiltr(true)}}>
                     <img src="./sort-two.svg" alt="" />
                 </button>
                 <div className={styles["Match_header"]}>
@@ -57,7 +62,10 @@ export function Match() {
                                             <button
                                                 className={styles["MatchNo"]}
                                             >
-                                                <img src="./close-small.svg" alt="" />
+                                                <img
+                                                    src="./close-small.svg"
+                                                    alt=""
+                                                />
                                             </button>
                                         </div>
                                     </div>
@@ -65,6 +73,17 @@ export function Match() {
                             );
                         })}
                     </div>
+                </div>
+                <div className={styles["hrIn"]}>
+                    <hr className={styles["hr_line"]} />
+                    <div className={styles["textInHr"]}>Before</div>
+                </div>
+                <div
+                    className={cn(styles["filter_display"], {
+                        [styles["hidden"]]: filtr === false,
+                    })}
+                >
+                    <Outlet />
                 </div>
             </div>
         </div>

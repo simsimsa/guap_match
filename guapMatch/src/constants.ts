@@ -1,4 +1,5 @@
-export const PREFIX = "http://185.246.66.240:4200/api"; //для руса по этому адресу у него бэк
+export const PREFIX = "http://localhost:4200/api";     //http://localhost:4200/api
+                                                            //http://185.246.66.240:4200/api
 
 export const API = {
     login: `${PREFIX}/auth/login`,

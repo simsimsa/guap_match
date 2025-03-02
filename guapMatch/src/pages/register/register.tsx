@@ -43,7 +43,7 @@ export function Register() {
         const target = event.target as typeof event.target & RegisterForm; //тип значений которые мы вытаскиваем
         const { name, email, password } = target; //отправляем данные туда
         // register({ emailReg, passwordReg });
-        await register({
+        register({
             name: name.value,
             email: email.value,
             password: password.value,

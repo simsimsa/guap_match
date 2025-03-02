@@ -78,7 +78,7 @@ const authSlice: StateCreator<
         }
     },
     logout: async (accessToken) => {
-        if (accessToken) set({ accessToken: null });
+        if (accessToken) set({ accessToken: null, user: null});
     },
     updateProfile: async (accessToken, updateData)=>{
         try {

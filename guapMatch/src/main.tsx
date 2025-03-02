@@ -8,10 +8,11 @@ import { Register } from "./pages/register/register.tsx";
 import { Layout } from "./pages/layout/layout.tsx";
 import { Form } from "./pages/Form/Form.tsx";
 import { Home } from "./pages/Home/Home.tsx";
-import { Match} from "./pages/Svap/Svap.tsx";
+import { Match } from "./pages/Svap/Svap.tsx";
 import { Messages } from "./pages/Messages/Messages.tsx";
 import { Profile } from "./pages/Profile/Profile.tsx";
 import { Cover } from "./pages/Cover/Cover.tsx";
+import { Filter } from "./pages/Filter/Filter.tsx";
 import { Settings } from "./pages/Settings/Settings.tsx";
 
 const router = createBrowserRouter([
@@ -26,6 +27,12 @@ const router = createBrowserRouter([
             {
                 path: "/Match",
                 element: <Match />,
+                children: [
+                    {
+                        path: "/Match",
+                        element: <Filter />,
+                    },
+                ],
             },
             {
                 path: "/Messages",
@@ -36,9 +43,9 @@ const router = createBrowserRouter([
                 element: <Profile />,
             },
             {
-                path: "/Profile/Settings",
-                element: <Settings />,
-            },
+                path:'/Settings',
+                element:<Settings/>
+            }
         ],
     },
     {

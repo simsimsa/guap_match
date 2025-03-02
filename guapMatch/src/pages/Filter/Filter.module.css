@@ -1,0 +1,143 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    justify-content: start;
+    position: fixed;
+    right: 30%;
+    bottom: 0;
+    width: 40%;
+    height: 60vh;
+    display: flex;
+    background: white;
+    border-radius: 10%;
+    border-end-start-radius: 0;
+    border-end-end-radius: 0;
+    border: #e94057 4px solid;
+    border-bottom: none;
+    padding: 40px;
+}
+
+.Filter_header {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-left: 45%;
+}
+
+.filterH1 {
+    font-weight: 700;
+    font-style: italic;
+    font-size: 36px;
+    line-height: 36px;
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+.Clear {
+    background: none;
+    border: none;
+    color: #e94057;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    text-align: right;
+}
+
+.Clear:hover {
+    color: #c03547;
+    cursor: pointer;
+}
+
+.filterInteres {
+    width: 100%;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    margin-bottom: 20px;
+}
+
+.filterBody {
+    width: 100%;
+}
+
+.gender {
+    display: flex;
+    border: 1px solid #e8e6ea;
+    background: #ffffff;
+    width: 100%;
+    border-radius: 15px;
+}
+
+.genderButtonLeft,
+.genderButtonRight,
+.genderButtonCenter {
+    flex: 1;
+    background: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    border: none;
+    font-style: italic;
+    font-size: 500;
+    font-size: 20px;
+}
+
+.genderButtonCenter {
+    border-left: 1px solid #e8e6ea;
+    border-right: 1px solid #e8e6ea;
+}
+
+.genderButtonLeft {
+    border-end-start-radius: 15px;
+    border-start-start-radius: 15px;
+}
+
+.genderButtonRight {
+    border-end-end-radius: 15px;
+    border-start-end-radius: 15px;
+}
+
+.genderButtonLeft:hover,
+.genderButtonRight:hover,
+.genderButtonCenter:hover {
+    background-color: #c3c0c0;
+    cursor: pointer;
+}
+
+.filterInput {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.filterInput label {
+    position: absolute;
+    top: -12px;
+    left: 25px;
+    background: #ffffff;
+    padding: 0 5px;
+    color: #e94057;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+}
+
+.active {
+    background: #e94057;
+    color: white;
+}
+
+.active:hover {
+    background: #e94057;
+    cursor: pointer;
+}
