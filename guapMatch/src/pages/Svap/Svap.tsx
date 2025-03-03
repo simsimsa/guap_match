@@ -83,7 +83,7 @@ export function Match() {
                         [styles["hidden"]]: filtr === false,
                     })}
                 >
-                    <Outlet />
+                    <Outlet context={setfiltr}/>
                 </div>
             </div>
         </div>

@@ -23,6 +23,12 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home />,
+                children: [
+                    {
+                        path: "/",
+                        element: <Filter />,
+                    },
+                ],
             },
             {
                 path: "/Match",
@@ -43,9 +49,9 @@ const router = createBrowserRouter([
                 element: <Profile />,
             },
             {
-                path:'/Settings',
-                element:<Settings/>
-            }
+                path: "/Settings",
+                element: <Settings />,
+            },
         ],
     },
     {

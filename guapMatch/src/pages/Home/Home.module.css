@@ -1,0 +1,214 @@
+.svapLayout {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.svap {
+    padding: 45px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    border-right: 3px solid #e94057;
+    border-left: 3px solid #e94057;
+    border-bottom: 3px solid #e94057;
+    position: relative;
+    background: white;
+}
+
+.svapHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+}
+
+.svapH1 {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 51px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+.svapHeaderBody {
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: #280423cb;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(213, 169, 208, 0.25);
+    border-radius: 15px;
+    border: 0;
+    position: absolute;
+    right: 45px;
+}
+
+.filter:hover {
+    background: rgba(170, 136, 166, 0.25);
+    cursor: pointer;
+}
+
+.filter_display {
+    background: rgba(102, 102, 102, 0.5);
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.container {
+    border: 2px solid #e94057;
+    border-radius: 15px;
+    margin-top: 15px;
+    position: absolute;
+}
+
+.after-container{
+    position: relative;
+    border-radius: 15px;
+}
+
+.svapInfo {
+    padding: 5px 0;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    border-radius: 10%;
+}
+
+.svapInfoHeader {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: white;
+}
+
+.svapInfoBody {
+    max-width: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: white;
+}
+
+.location {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    border-radius: 10%;
+    color: white;
+    font-weight: 500;
+    font-style: italic;
+    gap: 5px;
+}
+
+.svapChoise {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    width: 50%;
+    position: relative;
+}
+
+.choiseLike,
+.choiseDislike {
+    z-index: 1;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+}
+
+.choiseLike {
+    background: #e94057;
+    box-shadow: 0px 15px 15px 0px #e9405733;
+}
+
+.choiseLike:hover{
+    background: #cc3d50;
+}
+
+.choiseDislike{
+    box-shadow: 0px 20px 50px 0px #00000012;
+    background: white;
+}
+
+.choiseDislike:hover{
+    background: rgb(210, 205, 205);
+}
+
+.choiseLike:hover, .choiseDislike:hover{
+    cursor: pointer;
+    width: 100px;
+    height: 100px;
+}
+
+.svapRandom{
+    align-self: end;
+    padding: 15px;
+    border: none;
+    box-shadow: 0px 20px 50px 0px #83750534;
+    background: rgba(209, 209, 28, 0.77);
+    border-radius: 10%;
+    color: white;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 20px;
+    position: absolute;
+    left: 38%;
+    top:50px
+}
+
+.svapRandom:hover{
+    background: rgba(165, 165, 53, 0.77);
+    cursor: pointer;
+    font-size: 24px;
+    left: 36%;
+}

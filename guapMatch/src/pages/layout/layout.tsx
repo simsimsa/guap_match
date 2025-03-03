@@ -3,7 +3,6 @@ import styles from "./layout.module.css";
 import cn from "classnames";
 
 export function Layout() {
-
     return (
         <div className={styles["layout"]}>
             <div className={styles["menu_layout"]}>
@@ -14,7 +13,7 @@ export function Layout() {
                             cn(styles["goTo"], { [styles.active]: isActive })
                         }
                     >
-                        Home
+                        Svap
                     </NavLink>
                     <NavLink
                         to="/Match"
@@ -42,7 +41,7 @@ export function Layout() {
                     </NavLink>
                 </div>
             </div>
-            <div className={styles['outlet']}>
+            <div className={styles["outlet"]}>
                 <Outlet />
             </div>
         </div>
