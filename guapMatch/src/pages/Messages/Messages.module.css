@@ -1,0 +1,65 @@
+.messageLayout {
+    width: 900px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.message {
+    padding: 45px 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    border-right: 3px solid #e94057;
+    border-left: 3px solid #e94057;
+    border-bottom: 3px solid #e94057;
+    position: relative;
+    background: white;
+}
+
+.messageHeader {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.messageH1 {
+    font-style: italic;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 51px;
+    letter-spacing: 0px;
+    margin: 0;
+}
+
+
+.hrIn {
+    position: relative;
+    width: 80%;
+    margin-top: 20px;
+}
+
+.hr_line {
+    color: #e8e6ea;
+    margin-top: 12px;
+}
+
+.textInHr {
+    position: absolute;
+    top: 0px;
+    right: 47%;
+    background: white;
+    padding: 0 10px;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: 0px;
+    color: #280423cb;
+}
