@@ -4,6 +4,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-bottom: 40px;
 }
 
 .svap {
@@ -72,6 +73,7 @@
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 3;
 }
 
 .hidden {
@@ -88,6 +90,7 @@
 .after-container{
     position: relative;
     border-radius: 15px;
+    margin-top: 40px;
 }
 
 .svapInfo {
@@ -194,7 +197,7 @@
     align-self: end;
     padding: 15px;
     border: none;
-    box-shadow: 0px 20px 50px 0px #83750534;
+    box-shadow: 0px 20px 50px 0px #00000034;
     background: rgba(209, 209, 28, 0.77);
     border-radius: 10%;
     color: white;
@@ -211,4 +214,11 @@
     cursor: pointer;
     font-size: 24px;
     left: 36%;
+}
+
+.overlay {
+    position: absolute;
+    top: 50%;
+    left: 44%;
+    transform: translate(-50%, -50%);
 }
