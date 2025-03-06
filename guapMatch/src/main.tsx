@@ -14,6 +14,7 @@ import { Profile } from "./pages/Profile/Profile.tsx";
 import { Cover } from "./pages/Cover/Cover.tsx";
 import { Filter } from "./pages/Filter/Filter.tsx";
 import { Settings } from "./pages/Settings/Settings.tsx";
+import { Chatroom } from "./pages/Chatroom/Chatroom.tsx";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
             {
                 path: "/Messages",
                 element: <Messages />,
+            },
+            {
+                path: '/Chatroom',
+                element:<Chatroom/>
             },
             {
                 path: "/Profile",

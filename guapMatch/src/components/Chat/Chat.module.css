@@ -1,0 +1,68 @@
+.chatLayout {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.chat {
+    width: 100%;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.hrChat {
+    text-align: center;
+    background: #e8e6ea;
+    width: 60%;
+    margin: 0;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 60px;
+}
+
+.time {
+    font-weight: 500;
+    font-style: italic;
+    font-size: 16px;
+    line-height: 18px;
+    letter-spacing: 0px;
+    text-align: right;
+    color: #adafbb;
+}
+
+.chatHead {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.body {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.body:hover{
+    background: #f5f7ff;
+}
+
+.avtor {
+    font-weight: 500;
+    font-style: italic;
+    font-size: 24px;
+    line-height: 21px;
+    letter-spacing: 0px;
+}
+
+.message {
+    font-size: 20px;
+    font-style: italic;
+}

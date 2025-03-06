@@ -8,7 +8,7 @@
 }
 
 .message {
-    padding: 45px 0;
+    padding: 45px 0 0 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,6 @@
     margin: 0;
 }
 
-
 .hrIn {
     position: relative;
     width: 80%;
@@ -46,7 +45,8 @@
 }
 
 .hr_line {
-    color: #e8e6ea;
+    border-color: #E94057;
+    color: #E94057;
     margin-top: 12px;
 }
 
@@ -62,4 +62,19 @@
     line-height: 24px;
     letter-spacing: 0px;
     color: #280423cb;
+}
+
+.chatContainer {
+    padding: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+    width: 80%;
+    overflow-y: auto;
+    border-start-end-radius: 10px;
+    border-start-start-radius: 10px;
+    border-top: 1px solid #E94057;
+    border-right: 1px solid #E94057;
+    border-left: 1px solid #E94057;
 }
