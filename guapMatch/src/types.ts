@@ -38,3 +38,11 @@ export interface User {
     home?: string;
     aboutYou?: string;
 }
+
+export interface Chat {
+    id: number; // Добавим id для идентификации чата
+    avatar: string;
+    avtor: string;
+    message: string;
+    time: string;
+}

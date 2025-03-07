@@ -30,7 +30,7 @@ export function Messages() {
                 avatar: `./test1.jpg`,
                 avtor: 'Avtor',
                 message: `Сообщение ${index + 1}`,
-                time: `10:${index % 60}`,
+                time: `10:${index<10 ? '0'+String(index % 60) : index%60}`,
             }));
             setChats(newChats);
             setIsLoading(false);
@@ -95,6 +95,7 @@ export function Messages() {
                     {visibleChats.map((chat) => (
                         <Chat
                             key={chat.id}
+                            id={chat.id}
                             avatar={chat.avatar}
                             avtor={chat.avtor}
                             message={chat.message}

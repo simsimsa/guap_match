@@ -1,5 +1,5 @@
 import { create, StateCreator } from "zustand";
-import { LoginUser, RegisterUser, updateUser, User } from "../types";
+import { Chat, LoginUser, RegisterUser, updateUser, User } from "../types";
 import axios, { AxiosError } from "axios";
 import { API } from "../constants";
 import { devtools, persist } from "zustand/middleware";
@@ -17,6 +17,13 @@ type AuthActions = {
     logout: (accessToken: string | null) => void;
     updateProfile: (accessToken: string, updateData: updateUser) => void;
 };
+
+type ChatStore = {
+    chats: Chat[]; // Список чатов
+    selectedChat: Chat | null; // Выбранный чат
+    setChats: (chats: Chat[]) => void; // Функция для обновления списка чатов
+    selectChat: (chat: Chat) => void; // Функция для выбора чата
+}
 
 const authSlice: StateCreator<
     AuthSate & AuthActions,
@@ -78,9 +85,9 @@ const authSlice: StateCreator<
         }
     },
     logout: async (accessToken) => {
-        if (accessToken) set({ accessToken: null, user: null});
+        if (accessToken) set({ accessToken: null, user: null });
     },
-    updateProfile: async (accessToken, updateData)=>{
+    updateProfile: async (accessToken, updateData) => {
         try {
             const { data } = await axios.patch<User>(
                 API.updateProfile,
@@ -98,7 +105,7 @@ const authSlice: StateCreator<
                 set({ error: error.response?.data });
             }
         }
-    }
+    },
 });
 
 export const useAuthStore = create<AuthActions & AuthSate>()(
@@ -111,3 +118,18 @@ export const useAuthStore = create<AuthActions & AuthSate>()(
         }
     )
 ); //тут написан хук который можно везде юзать
+
+const loadSelectedChat = (): Chat | null => {
+    const savedChat = localStorage.getItem("selectedChat");
+    return savedChat ? JSON.parse(savedChat) : null;
+};
+
+export const useChatStore = create<ChatStore>((set) => ({
+    chats: [], // Начальное состояние (пустой список чатов)
+    selectedChat: loadSelectedChat(), // Восстановление выбранного чата из localStorage
+    setChats: (chats) => set({ chats }), // Обновление списка чатов
+    selectChat: (chat) => {
+        localStorage.setItem("selectedChat", JSON.stringify(chat)); // Сохранение выбранного чата в localStorage
+        set({ selectedChat: chat }); // Обновление состояния
+    },
+}));
