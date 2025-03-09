@@ -86,7 +86,7 @@ export function Chatroom() {
                         >
                             <img src="./backtomessages.svg" alt="" />
                         </Link>
-                        <div className={styles["avtor"]}>
+                        <Link to='/Buddy' className={styles["avtor"]}>
                             <img
                                 className={styles["avatar"]}
                                 src={selectedChat.avatar}
@@ -95,7 +95,7 @@ export function Chatroom() {
                             <h1 className={styles["chatroomH1"]}>
                                 {selectedChat.avtor}
                             </h1>
-                        </div>
+                        </Link>
                     </div>
                     <Search placeholder="Поиск..." onChange={updateFilter} />
                 </div>
