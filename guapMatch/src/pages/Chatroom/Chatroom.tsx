@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Link } from "react-router-dom";
 import { useChatStore } from "../../store/auth.state";
 import styles from "./Chatroom.module.css";
@@ -37,8 +38,10 @@ const messages: Array<messagesSms> = [
 ];
 
 export function Chatroom() {
+    const [filter, setFilter] = useState<string>("");
     const messageRef = useRef<HTMLDivElement>(null);
     const [messag, setmessag] = useState(messages);
+    const [filteredMessages, setFilteredMessages] = useState(messages);
     const { selectedChat } = useChatStore(); // Доступ к выбранному чату
 
     useEffect(() => {
@@ -51,8 +54,15 @@ export function Chatroom() {
         return <div>Чат не выбран</div>;
     }
 
+    useEffect(() => {
+        const filteredChats = messages.filter((message) =>
+            message.text.toLowerCase().includes(filter.toLowerCase())
+        );
+        setFilteredMessages(filteredChats);
+    }, [filter]);
+
     const updateFilter = (event: ChangeEvent<HTMLInputElement>) => {
-        console.log("Тут будет фильтр чатов", event);
+        setFilter(event.target.value);
     };
 
     const sendMessage = (e: FormEvent) => {
@@ -71,6 +81,7 @@ export function Chatroom() {
                 }),
             };
             setmessag([...messag, newMessag]);
+            setFilteredMessages([...filteredMessages, newMessag]);
         }
         message.value = "";
     };
@@ -83,10 +94,11 @@ export function Chatroom() {
                         <Link
                             to="/Messages"
                             className={styles["backToMessages"]}
+                            //onClick={exitinchat}
                         >
                             <img src="./backtomessages.svg" alt="" />
                         </Link>
-                        <Link to='/Buddy' className={styles["avtor"]}>
+                        <Link to="/Buddy" className={styles["avtor"]}>
                             <img
                                 className={styles["avatar"]}
                                 src={selectedChat.avatar}
@@ -107,7 +119,7 @@ export function Chatroom() {
                             text={selectedChat.message}
                             time={selectedChat.time}
                         />
-                        {messag.map((message, index) => (
+                        {filteredMessages.map((message, index) => (
                             <Sms
                                 key={index}
                                 from={message.from}

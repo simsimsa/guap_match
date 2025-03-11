@@ -23,7 +23,8 @@ type ChatStore = {
     selectedChat: Chat | null; // Выбранный чат
     setChats: (chats: Chat[]) => void; // Функция для обновления списка чатов
     selectChat: (chat: Chat) => void; // Функция для выбора чата
-}
+    exitinchat: () => void;
+};
 
 const authSlice: StateCreator<
     AuthSate & AuthActions,
@@ -131,5 +132,8 @@ export const useChatStore = create<ChatStore>((set) => ({
     selectChat: (chat) => {
         localStorage.setItem("selectedChat", JSON.stringify(chat)); // Сохранение выбранного чата в localStorage
         set({ selectedChat: chat }); // Обновление состояния
+    },
+    exitinchat: () => {
+        localStorage.removeItem("selectedChat");
     },
 }));

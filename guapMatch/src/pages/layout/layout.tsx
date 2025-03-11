@@ -1,8 +1,10 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import styles from "./layout.module.css";
 import cn from "classnames";
 
 export function Layout() {
+    const location = useLocation();
+
     return (
         <div className={styles["layout"]}>
             <div className={styles["menu_layout"]}>
@@ -26,7 +28,12 @@ export function Layout() {
                     <NavLink
                         to="/Messages"
                         className={({ isActive }) =>
-                            cn(styles["goTo"], { [styles.active]: isActive })
+                            cn(styles["goTo"], {
+                                [styles.active]:
+                                    isActive ||
+                                    location.pathname === "/Chatroom" ||
+                                    location.pathname=="/Buddy",
+                            })
                         }
                     >
                         Messages
@@ -34,7 +41,11 @@ export function Layout() {
                     <NavLink
                         to="/Profile"
                         className={({ isActive }) =>
-                            cn(styles["goTo"], { [styles.active]: isActive })
+                            cn(styles["goTo"], {
+                                [styles.active]:
+                                    isActive ||
+                                    location.pathname === "/Settings",
+                            })
                         }
                     >
                         Profile
