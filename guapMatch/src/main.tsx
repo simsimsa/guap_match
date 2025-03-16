@@ -16,6 +16,8 @@ import { Filter } from "./pages/Filter/Filter.tsx";
 import { Settings } from "./pages/Settings/Settings.tsx";
 import { Chatroom } from "./pages/Chatroom/Chatroom.tsx";
 import { Buddy } from "./pages/buddyProdile/buddyProfile.tsx";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const router = createBrowserRouter([
     {
@@ -47,12 +49,12 @@ const router = createBrowserRouter([
                 element: <Messages />,
             },
             {
-                path: '/Buddy',
-                element: <Buddy/>
+                path: "/Buddy",
+                element: <Buddy />,
             },
             {
-                path: '/Chatroom',
-                element:<Chatroom/>
+                path: "/Chatroom",
+                element: <Chatroom />,
             },
             {
                 path: "/Profile",
@@ -90,6 +92,12 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <RouterProvider router={router} />
+        <SkeletonTheme
+            baseColor="#d5d4d3"
+            highlightColor="#f2f0ef"
+            duration={2}
+        >
+            <RouterProvider router={router} />
+        </SkeletonTheme>
     </React.StrictMode>
 );

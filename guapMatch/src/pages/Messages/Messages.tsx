@@ -2,8 +2,10 @@ import { ChangeEvent, useEffect, useState, useRef } from "react";
 import styles from "./Messages.module.css";
 import Search from "../../components/Search/Search";
 import Chat from "../../components/Chat/Chat";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
-const totalChats = 100; // Общее количество чатов (будет приходить с бэкенда)
+const totalChats = 101;
 
 interface Chat {
     id: number;
@@ -15,11 +17,11 @@ interface Chat {
 
 export function Messages() {
     const [filter, setFilter] = useState<string>("");
-    const [chats, setChats] = useState<Array<Chat>>([]); // Все чаты
-    const [visibleChats, setVisibleChats] = useState<Array<Chat>>([]); // Видимые чаты
-    const [page, setPage] = useState(0); // Текущая страница пагинации
-    const [isLoading, setIsLoading] = useState(false); // Состояние загрузки
-    const loaderRef = useRef<HTMLDivElement | null>(null); // Референс для отслеживания прокрутки
+    const [chats, setChats] = useState<Array<Chat>>([]);
+    const [visibleChats, setVisibleChats] = useState<Array<Chat>>([]);
+    const [page, setPage] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
+    const loaderRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const fetchChats = async () => {
@@ -28,9 +30,11 @@ export function Messages() {
             const newChats = Array.from({ length: totalChats }, (_, index) => ({
                 id: index + 1,
                 avatar: `./test1.jpg`,
-                avtor: 'Avtor',
+                avtor: `Avtor ${index+1}`,
                 message: `Сообщение ${index + 1}`,
-                time: `10:${index<10 ? '0'+String(index % 60) : index%60}`,
+                time: `10:${
+                    index < 10 ? "0" + String(index % 60) : index % 60
+                }`,
             }));
             setChats(newChats);
             setIsLoading(false);
@@ -39,15 +43,6 @@ export function Messages() {
         fetchChats();
     }, []);
 
-
-    useEffect(() => {
-        const filteredChats = chats.filter((chat) =>
-            chat.message.toLowerCase().includes(filter.toLowerCase())
-        );
-        setVisibleChats(filteredChats.slice(0, (page + 1) * 20));
-    }, [filter, chats, page]);
-
-  
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
@@ -69,6 +64,12 @@ export function Messages() {
         };
     }, [isLoading]);
 
+    useEffect(() => {
+        const filteredChats = chats.filter((chat) =>
+            chat.message.toLowerCase().includes(filter.toLowerCase())
+        );
+        setVisibleChats(filteredChats.slice(0, (page + 1) * 20));
+    }, [filter, chats, page]);
 
     const updateFilter = (event: ChangeEvent<HTMLInputElement>) => {
         setFilter(event.target.value);
@@ -102,8 +103,19 @@ export function Messages() {
                             time={chat.time}
                         />
                     ))}
-                    {isLoading && <div>Загрузка...</div>}
-                    <div ref={loaderRef} style={{ height: "20px" }} />
+
+                    {isLoading &&
+                        Array.from({ length: 10 }).map(() => (
+                            <div style={{ width: "80%", marginBottom: "5px" }}>
+                                <Skeleton height={50} />
+                            </div>
+                        ))}
+
+                    {page*20 <= totalChats && !filter && (
+                        <div ref={loaderRef} style={{ width: "80%" }}>
+                            <Skeleton height={60} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

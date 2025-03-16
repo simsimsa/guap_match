@@ -8,6 +8,7 @@ type AuthSate = {
     accessToken: null | string; //есть ли токен
     error: null | string; //вылетела ли ошибка
     user: null | User; //есть ли юзер
+    isLoading: boolean;
 };
 
 type AuthActions = {
@@ -33,7 +34,9 @@ const authSlice: StateCreator<
     accessToken: null,
     error: null,
     user: null,
+    isLoading: false,
     login: async ({ email, password }) => {
+        set({isLoading: true});
         try {
             const { data } = await axios.post(
                 API.login,
@@ -47,29 +50,31 @@ const authSlice: StateCreator<
                     },
                 }
             );
-            set({ accessToken: data.accessToken, error: null }); //получаем токен при успехе
+            set({ accessToken: data.accessToken, error: null, isLoading: false }); //получаем токен при успехе
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data.message }); //указываем ошибку
+                set({ error: error.response?.data.message, isLoading: false }); //указываем ошибку
             }
         }
     },
     register: async (requestData) => {
+        set({isLoading: true})
         try {
             const { data } = await axios.post(API.register, requestData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            set({ accessToken: data.accessToken, error: null });
+            set({ accessToken: data.accessToken, error: null, isLoading: false });
             console.log(data.accessToken);
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data });
+                set({ error: error.response?.data, isLoading: false });
             }
         }
     },
     getProfile: async (accessToken) => {
+        set({ isLoading: true });
         try {
             const { data } = await axios.get<User>(API.profile, {
                 //получаем токен
@@ -77,10 +82,10 @@ const authSlice: StateCreator<
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            set({ user: data, error: null });
+            set({ user: data, error: null, isLoading: false });
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data }); //если что-то пошло не так
+                set({ error: error.response?.data, isLoading: false }); //если что-то пошло не так
                 console.log(error);
             }
         }
@@ -89,6 +94,7 @@ const authSlice: StateCreator<
         if (accessToken) set({ accessToken: null, user: null });
     },
     updateProfile: async (accessToken, updateData) => {
+        set({ isLoading: true});
         try {
             const { data } = await axios.patch<User>(
                 API.updateProfile,
@@ -100,10 +106,10 @@ const authSlice: StateCreator<
                     },
                 }
             );
-            set({ user: data, error: null });
+            set({ user: data, error: null, isLoading: false });
         } catch (error) {
             if (error instanceof AxiosError) {
-                set({ error: error.response?.data });
+                set({ error: error.response?.data, isLoading: false });
             }
         }
     },

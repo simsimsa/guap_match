@@ -3,6 +3,8 @@ import styles from "./User.module.css";
 import cn from "classnames";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../../store/auth.state";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const testImg = [
     "./test1.jpg",
@@ -14,7 +16,7 @@ const testImg = [
 ];
 
 export function User() {
-    const { getProfile, accessToken, user } = useAuthStore();
+    const { getProfile, accessToken, user, isLoading } = useAuthStore();
     const [seephotos, setSeephotos] = useState("See all");
     const [appear, setappear] = useState(true);
     const [numberImg, setnumberImg] = useState(-1);
@@ -87,10 +89,11 @@ export function User() {
                     <div className={styles["user_header"]}>
                         <div className={styles["user_main"]}>
                             <div className={styles["user_name"]}>
-                                {user?.name},
+                                {isLoading ? <Skeleton /> : `${user?.name},`}
                             </div>
+
                             <div className={styles["user_age"]}>
-                                {user?.age} лет
+                                {isLoading ? <Skeleton /> : `${user?.age} лет`}
                             </div>
                         </div>
                         <Link to="/Settings" className={styles["settings"]}>
@@ -100,26 +103,28 @@ export function User() {
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>{user?.napravl}</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.course} курс
+                            {isLoading ? <Skeleton /> : `${user?.course} курс`}
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Место проживания</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.life}
+                            {isLoading ? <Skeleton /> : user?.life}
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Родной город</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.home}
+                            {isLoading ? <Skeleton /> : user?.home}
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["title"]}>О себе</div>
-                <div className={styles["text_kategory"]}>{user?.aboutYou}</div>
+                <div className={styles["text_kategory"]}>
+                    {isLoading ? <Skeleton /> : user?.aboutYou}
+                </div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["user_gallery"]}>
@@ -155,13 +160,22 @@ export function User() {
                     >
                         <img src="./edit_gallery.svg" alt="" />
                     </button>
-                    <button //тут будет onClicke на добавление фотографии
+                    <label
+                        htmlFor="addgallerry"
                         className={cn(styles["edit_gallery"], {
                             [styles["hidden"]]: edit === false,
                         })}
                     >
-                        <img src="./add_gallery.svg" alt="" />
-                    </button>
+                        <img src="./add_gallery.svg" alt="" />\
+                    </label>
+                    <input
+                        type="file"
+                        name="addgallerry"
+                        id="addgallerry"
+                        className={styles["hidden"]}
+                        accept="image/*"
+                    />
+
                     {testImg.map((photo, index) => {
                         return (
                             <div
