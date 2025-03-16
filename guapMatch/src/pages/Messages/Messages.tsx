@@ -106,8 +106,8 @@ export function Messages() {
 
                     {isLoading &&
                         Array.from({ length: 10 }).map(() => (
-                            <div style={{ width: "80%", marginBottom: "5px" }}>
-                                <Skeleton height={50} />
+                            <div style={{ width: "80%", marginBottom: "10px" }}>
+                                <Skeleton height={60} />
                             </div>
                         ))}
 

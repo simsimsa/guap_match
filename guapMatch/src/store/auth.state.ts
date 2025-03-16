@@ -36,7 +36,7 @@ const authSlice: StateCreator<
     user: null,
     isLoading: false,
     login: async ({ email, password }) => {
-        set({isLoading: true});
+        set({ isLoading: true });
         try {
             const { data } = await axios.post(
                 API.login,
@@ -50,7 +50,11 @@ const authSlice: StateCreator<
                     },
                 }
             );
-            set({ accessToken: data.accessToken, error: null, isLoading: false }); //получаем токен при успехе
+            set({
+                accessToken: data.accessToken,
+                error: null,
+                isLoading: false,
+            }); //получаем токен при успехе
         } catch (error) {
             if (error instanceof AxiosError) {
                 set({ error: error.response?.data.message, isLoading: false }); //указываем ошибку
@@ -58,14 +62,18 @@ const authSlice: StateCreator<
         }
     },
     register: async (requestData) => {
-        set({isLoading: true})
+        set({ isLoading: true });
         try {
             const { data } = await axios.post(API.register, requestData, {
                 headers: {
                     "Content-Type": "application/json",
                 },
             });
-            set({ accessToken: data.accessToken, error: null, isLoading: false });
+            set({
+                accessToken: data.accessToken,
+                error: null,
+                isLoading: false,
+            });
             console.log(data.accessToken);
         } catch (error) {
             if (error instanceof AxiosError) {
@@ -82,7 +90,7 @@ const authSlice: StateCreator<
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            set({ user: data, error: null, isLoading: false });
+            set({ user: data, error: null, isLoading: true });
         } catch (error) {
             if (error instanceof AxiosError) {
                 set({ error: error.response?.data, isLoading: false }); //если что-то пошло не так
@@ -94,7 +102,7 @@ const authSlice: StateCreator<
         if (accessToken) set({ accessToken: null, user: null });
     },
     updateProfile: async (accessToken, updateData) => {
-        set({ isLoading: true});
+        set({ isLoading: true });
         try {
             const { data } = await axios.patch<User>(
                 API.updateProfile,

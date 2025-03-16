@@ -3,17 +3,19 @@ import styles from "./buddyProfile.module.css";
 import cn from "classnames";
 import { useAuthStore } from "../../store/auth.state";
 import { Link } from "react-router-dom";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const testImg = [
     "./test1.jpg",
     "./roma.jpg",
     "./test3.jpg",
     "./test2.jpg",
-    "./test4.jpg"
+    "./test4.jpg",
 ];
 
 export function Buddy() {
-    const { user } = useAuthStore();
+    const { user, isLoading } = useAuthStore();
     const [seephotos, setSeephotos] = useState("See all");
     const [numberImg, setnumberImg] = useState(-1);
     const [edit, setedit] = useState(false);
@@ -43,44 +45,46 @@ export function Buddy() {
                 <Link to="/Chatroom" className={styles["backToMessages"]}>
                     <img src="./backtomessages.svg" alt="" />
                 </Link>
-                <div
+                {isLoading ? <Skeleton width={300} height={300}/> :<div
                     className={styles["user_photo"]}
                     style={{ backgroundImage: `url(./ava_test.jpg)` }}
-                />
+                />}
                 <div className={styles["user_info"]}>
                     <div className={styles["user_header"]}>
                         <div className={styles["user_main"]}>
                             <div className={styles["user_name"]}>
-                                {user?.name},
+                                {isLoading ? <Skeleton width={90}/> : `${user?.name},`}
                             </div>
                             <div className={styles["user_age"]}>
-                                {user?.age} лет
+                                {isLoading ? <Skeleton width={50} /> : `${user?.age} лет`}
                             </div>
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
-                        <div className={styles["title"]}>{user?.napravl}</div>
+                        <div className={styles["title"]}>{isLoading ? <Skeleton/> :user?.napravl}</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.course} курс
+                            {isLoading ? <Skeleton /> : `${user?.course} курс`}
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Место проживания</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.life}
+                            {isLoading ? <Skeleton /> : user?.life}
                         </div>
                     </div>
                     <div className={styles["kategory"]}>
                         <div className={styles["title"]}>Родной город</div>
                         <div className={styles["text_kategory"]}>
-                            {user?.home}
+                            {isLoading ? <Skeleton /> : user?.home}
                         </div>
                     </div>
                 </div>
             </div>
             <div className={styles["text_body"]}>
                 <div className={styles["title"]}>О себе</div>
-                <div className={styles["text_kategory"]}>{user?.aboutYou}</div>
+                <div className={styles["text_kategory"]}>
+                    {isLoading ? <Skeleton /> : user?.aboutYou}
+                </div>
             </div>
             <div className={styles["user_body"]}>
                 <div className={styles["user_gallery"]}>
@@ -123,7 +127,7 @@ export function Buddy() {
                                 )}
                                 key={index}
                             >
-                                <img
+                                {isLoading ? <Skeleton height={300}/> : <img
                                     src={photo}
                                     className={cn(styles["photo_user"], {
                                         [styles["big_image"]]:
@@ -134,7 +138,7 @@ export function Buddy() {
                                     onClick={() => {
                                         handleImageClick(index);
                                     }}
-                                />
+                                />}
                             </div>
                         );
                     })}

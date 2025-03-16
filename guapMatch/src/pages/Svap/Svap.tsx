@@ -2,6 +2,9 @@ import { Outlet } from "react-router-dom";
 import styles from "./Svap.module.css";
 import { useState } from "react";
 import cn from "classnames";
+import { useAuthStore } from "../../store/auth.state";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const testImg = [
     "./test1.jpg",
@@ -13,12 +16,18 @@ const testImg = [
 ];
 
 export function Match() {
+    const { isLoading } = useAuthStore();
     const [filtr, setfiltr] = useState(false);
 
     return (
         <div className={styles["MatchLayout"]}>
             <div className={styles["Match"]}>
-                <button className={styles["filter"]} onClick={()=>{setfiltr(true)}}>
+                <button
+                    className={styles["filter"]}
+                    onClick={() => {
+                        setfiltr(true);
+                    }}
+                >
                     <img src="./sort-two.svg" alt="" />
                 </button>
                 <div className={styles["Match_header"]}>
@@ -44,14 +53,33 @@ export function Match() {
                                         src={photo}
                                         className={styles["photo_user"]}
                                     />
+
                                     <div className={styles["matchUserInfo"]}>
                                         <div
                                             className={
                                                 styles["matchInfoHeader"]
                                             }
                                         >
-                                            <div>UserName</div>
-                                            <div>UserAge</div>
+                                            <div>
+                                                {isLoading ? (
+                                                    <Skeleton
+                                                        width={80}
+                                                        height={30}
+                                                    />
+                                                ) : (
+                                                    "UserName"
+                                                )}
+                                            </div>
+                                            <div>
+                                                {isLoading ? (
+                                                    <Skeleton
+                                                        width={80}
+                                                        height={30}
+                                                    />
+                                                ) : (
+                                                    "UserAge"
+                                                )}
+                                            </div>
                                         </div>
                                         <div className={styles["YesOrNo"]}>
                                             <button
@@ -83,7 +111,7 @@ export function Match() {
                         [styles["hidden"]]: filtr === false,
                     })}
                 >
-                    <Outlet context={setfiltr}/>
+                    <Outlet context={setfiltr} />
                 </div>
             </div>
         </div>

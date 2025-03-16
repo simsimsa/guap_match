@@ -3,8 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import styles from "./Home.module.css";
 import cn from "classnames";
 import { Outlet } from "react-router-dom";
+import { useAuthStore } from "../../store/auth.state";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export function Home() {
+    const {isLoading}=useAuthStore();
     const [filtr, setfiltr] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
@@ -13,9 +17,7 @@ export function Home() {
         "like" | "dislike" | "random" | null
     >(null);
 
-  
     const images = ["/test1.jpg", "/test2.jpg", "/test3.jpg"];
-
 
     const random = () => {
         const randomNumber = Math.random();
@@ -26,22 +28,20 @@ export function Home() {
         }
     };
 
-
     const handleLike = () => {
         setAction("like");
         setTimeout(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length); 
-            setAction(null); 
-        }, 1000); 
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+            setAction(null);
+        }, 1000);
     };
 
-    
     const handleDislike = () => {
         setAction("dislike");
         setTimeout(() => {
-            setCurrentImageIndex((prev) => (prev + 1) % images.length); 
-            setAction(null); 
-        }, 1000); 
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+            setAction(null);
+        }, 1000);
     };
 
     return (
@@ -64,81 +64,94 @@ export function Home() {
                     </div>
                 </div>
 
-                <div
-                    style={{
-                        backgroundImage: `url(${
-                            images[(currentImageIndex + 1) % images.length]
-                        })`,
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        width: "440px",
-                        height: "440px",
-                    }}
-                    className={styles["after-container"]}
-                >
-                    <AnimatePresence>
-                        <motion.div
-                            key={currentImageIndex}
-                            initial={{ opacity: 1, scale: 1 }}
-                            animate={{
-                                opacity: action ? 0 : 1,
-                                scale: action ? 0.5 : 1,
-                                x:
-                                    action === "like"
-                                        ? 400
-                                        : action === "dislike"
-                                        ? -400
-                                        : 0,
-                            }}
-                            transition={{ duration: 1 }}
-                            className={styles["container"]}
-                            style={{
-                                backgroundImage: `url(${images[currentImageIndex]})`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                backgroundRepeat: "no-repeat",
-                                width: "460px",
-                                height: "460px",
-                            }}
-                        >
-                            <AnimatePresence>
-                                {isHovered && (
-                                    <motion.div
-                                        initial={{ scale: 0, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        exit={{ scale: 0, opacity: 0 }}
-                                        transition={{ duration: 0.5 }}
-                                        className={styles["overlay"]}
-                                    >
-                                        {yesorno === "like" ? (
-                                            <img src="./likesvap.svg" alt="" />
-                                        ) : yesorno === "random" ? (
-                                            <img src="./question.svg" alt="" />
-                                        ) : (
-                                            <img src="./dislike.svg" alt="" />
-                                        )}
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
+                {isLoading ? (
+                    <Skeleton width={440} height={440}/>
+                ) : (
+                    <div
+                        style={{
+                            backgroundImage: `url(${
+                                images[(currentImageIndex + 1) % images.length]
+                            })`,
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            width: "440px",
+                            height: "440px",
+                        }}
+                        className={styles["after-container"]}
+                    >
+                        <AnimatePresence>
+                            <motion.div
+                                key={currentImageIndex}
+                                initial={{ opacity: 1, scale: 1 }}
+                                animate={{
+                                    opacity: action ? 0 : 1,
+                                    scale: action ? 0.5 : 1,
+                                    x:
+                                        action === "like"
+                                            ? 400
+                                            : action === "dislike"
+                                            ? -400
+                                            : 0,
+                                }}
+                                transition={{ duration: 1 }}
+                                className={styles["container"]}
+                                style={{
+                                    backgroundImage: `url(${images[currentImageIndex]})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    backgroundRepeat: "no-repeat",
+                                    width: "460px",
+                                    height: "460px",
+                                }}
+                            >
+                                <AnimatePresence>
+                                    {isHovered && (
+                                        <motion.div
+                                            initial={{ scale: 0, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            exit={{ scale: 0, opacity: 0 }}
+                                            transition={{ duration: 0.5 }}
+                                            className={styles["overlay"]}
+                                        >
+                                            {yesorno === "like" ? (
+                                                <img
+                                                    src="./likesvap.svg"
+                                                    alt=""
+                                                />
+                                            ) : yesorno === "random" ? (
+                                                <img
+                                                    src="./question.svg"
+                                                    alt=""
+                                                />
+                                            ) : (
+                                                <img
+                                                    src="./dislike.svg"
+                                                    alt=""
+                                                />
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
 
-                            <div className={styles["location"]}>
-                                <img src="./local-two.svg" alt="" />
-                                <div>Общажка</div>
-                            </div>
-                            <div className={styles["svapInfo"]}>
-                                <div className={styles["svapInfoHeader"]}>
-                                    <div>Ксюша, </div>
-                                    <div>19 лет</div>
+                                <div className={styles["location"]}>
+                                    <img src="./local-two.svg" alt="" />
+                                    <div>Общажка</div>
                                 </div>
-                                <div className={styles["svapInfoBody"]}>
-                                    <div>ИВТ, </div>
-                                    <div>2 курс</div>
+                                <div className={styles["svapInfo"]}>
+                                    <div className={styles["svapInfoHeader"]}>
+                                        <div>Ксюша, </div>
+                                        <div>19 лет</div>
+                                    </div>
+                                    <div className={styles["svapInfoBody"]}>
+                                        <div>ИВТ, </div>
+                                        <div>2 курс</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
+                )}
 
                 <div className={styles["svapChoise"]}>
                     <button

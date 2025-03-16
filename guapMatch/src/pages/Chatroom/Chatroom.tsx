@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Link } from "react-router-dom";
-import { useChatStore } from "../../store/auth.state";
+import { useAuthStore, useChatStore } from "../../store/auth.state";
 import styles from "./Chatroom.module.css";
 import Search from "../../components/Search/Search";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import Input from "../../components/Input/Input";
 import Sms from "../../components/Sms/Sms";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 export type MessageForm = {
     message: {
@@ -38,6 +40,7 @@ const messages: Array<messagesSms> = [
 ];
 
 export function Chatroom() {
+    const { isLoading } = useAuthStore();
     const [filter, setFilter] = useState<string>("");
     const messageRef = useRef<HTMLDivElement>(null);
     const [messag, setmessag] = useState(messages);
@@ -99,13 +102,21 @@ export function Chatroom() {
                             <img src="./backtomessages.svg" alt="" />
                         </Link>
                         <Link to="/Buddy" className={styles["avtor"]}>
-                            <img
-                                className={styles["avatar"]}
-                                src={selectedChat.avatar}
-                                alt={selectedChat.avtor}
-                            />
+                            {isLoading ? (
+                                <Skeleton className={styles["avatar"]} />
+                            ) : (
+                                <img
+                                    className={styles["avatar"]}
+                                    src={selectedChat.avatar}
+                                    alt={selectedChat.avtor}
+                                />
+                            )}
                             <h1 className={styles["chatroomH1"]}>
-                                {selectedChat.avtor}
+                                {isLoading ? (
+                                    <Skeleton width={90} height={30} />
+                                ) : (
+                                    selectedChat.avtor
+                                )}
                             </h1>
                         </Link>
                     </div>

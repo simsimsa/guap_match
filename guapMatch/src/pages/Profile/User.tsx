@@ -77,14 +77,14 @@ export function User() {
                 </div>
             </div>
             <div className={styles["user_head"]}>
-                <div
+                 {isLoading ? <Skeleton width={300} height={300}/> :<div
                     className={styles["user_photo"]}
                     style={{ backgroundImage: `url(./ava_test.jpg)` }}
                 >
                     <button className={styles["img_new"]}>
                         <img src="./loading.svg" alt="" />
                     </button>
-                </div>
+                </div>}
                 <div className={styles["user_info"]}>
                     <div className={styles["user_header"]}>
                         <div className={styles["user_main"]}>
@@ -101,7 +101,7 @@ export function User() {
                         </Link>
                     </div>
                     <div className={styles["kategory"]}>
-                        <div className={styles["title"]}>{user?.napravl}</div>
+                        <div className={styles["title"]}>{isLoading ? <Skeleton/> :user?.napravl}</div>
                         <div className={styles["text_kategory"]}>
                             {isLoading ? <Skeleton /> : `${user?.course} курс`}
                         </div>
@@ -192,7 +192,7 @@ export function User() {
                                 )}
                                 key={index}
                             >
-                                <img
+                                {isLoading ? <Skeleton height={300}/> :<img
                                     src={photo}
                                     className={cn(styles["photo_user"], {
                                         [styles["big_image"]]:
@@ -203,7 +203,7 @@ export function User() {
                                     onClick={() => {
                                         handleImageClick(index);
                                     }}
-                                />
+                                />}
                                 <button
                                     className={cn(styles["cross_img"], {
                                         [styles["hidden"]]: edit === false,
